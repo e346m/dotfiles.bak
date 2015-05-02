@@ -81,22 +81,24 @@ NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'open-browser.vim'
 NeoBundle 'kana/vim-smartchr'
-
+NeoBundle 'tomasr/molokai'
 
 " vim-indent-guides
 " na/vim-smartchr'Vim 起動時 vim-indent-guides を自動起動
+colorscheme molokai
 let g:indent_guides_enable_on_vim_startup=1
 " ガイドをスタートするインデントの量
 let g:indent_guides_start_level=2
 " 自動カラー無効
 let g:indent_guides_auto_colors=0
 " 奇数番目のインデントの色
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#444433 ctermbg=black
+"autocmd VimEnter,Colorscheme
+:hi IndentGuidesOdd  guibg=#444433 ctermbg=black
 " 偶数番目のインデントの色
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#333344 ctermbg=darkgray
+"autocmd VimEnter,Colorscheme
+:hi IndentGuidesEven guibg=#333344 ctermbg=darkgrey
 " ガイドの幅
 let g:indent_guides_guide_size = 1
-
 
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
@@ -121,7 +123,7 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-    :
+:
 
 filetype plugin on
 filetype indent on
