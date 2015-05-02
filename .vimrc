@@ -38,7 +38,7 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
 set nocompatible
 
 filetype off
