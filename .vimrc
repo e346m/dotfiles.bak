@@ -23,8 +23,8 @@ set nohlsearch "検索結果文字列の非ハイライト表示
 
 "----encoding
 :set encoding=utf-8
-:set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
-:set fileformats=unix,dos,mac
+:set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
+:set fileformats=mac,unix,dos
 
 "----copy
 set clipboard+=unnamed
@@ -38,6 +38,16 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+inoremap () ()<Left>
+inoremap {} {}<Left>
+inoremap [] []<Left>
+inoremap <> <><Left>
+inoremap "" ""<Left>
+inoremap '' ''<Left>
+inoremap `' `'<Left>
+inoremap \%\% \%\%<Left>
+inoremap \|\| \|\|<Left>
+inoremap , ,<Space>
 "autocmd vimenter * NERDTree
 set nocompatible
 
@@ -49,6 +59,11 @@ endif
 
 " ここにインストールしたいプラグインのリストを書く
 NeoBundle 'Shougo/unite.vim'
+nnoremap ,ub :<C-u>Unite buffer<CR>
+nnoremap ,uc :<C-u>Unite file<CR>
+nnoremap ,uh :<C-u>Unite file_mru<CR>
+nnoremap ,uf  :<c-u>UniteWithBufferDir -buffer-name=files file -direction=botright <cr>
+noremap ,ur     :Unite -buffer-name=register register<CR>
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Align'
 NeoBundle 'vim-ruby/vim-ruby'
@@ -104,7 +119,7 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '¥*ku¥*'
-
+let g:neocomplete#force_overwrite_completefunc=1
 let g:neocomplete#sources#dictionary#dictionaries = {
             \ 'default' : '',
             \ 'vimshell' : $HOME.'/.vimshell_hist',
