@@ -1,0 +1,10 @@
+[user]
+	name = eiji mishiro
+	email = eiji346g@gmail.com
+[color]
+	ui = auto
+[alias]
+	co = checkout
+
+[core]
+	editor = vim -c \"set fenc=utf-8\"

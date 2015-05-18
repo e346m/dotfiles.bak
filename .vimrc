@@ -45,7 +45,7 @@ inoremap <> <><Left>
 inoremap "" ""<Left>
 inoremap '' ''<Left>
 inoremap `' `'<Left>
-inoremap \%\% \%\%<Left>
+inoremap %% %%<Left>
 inoremap \|\| \|\|<Left>
 inoremap , ,<Space>
 "autocmd vimenter * NERDTree
@@ -54,10 +54,14 @@ set nocompatible
 filetype off
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim
-    call neobundle#rc(expand('~/.vim/bundle'))
+    call neobundle#begin(expand('~/.vim/bundle/'))
+    NeoBundleFetch 'Shougo/neobundle.vim'
+    call neobundle#end()
 endif
 
 " ここにインストールしたいプラグインのリストを書く
+
+call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundle 'Shougo/unite.vim'
 nnoremap ,ub :<C-u>Unite buffer<CR>
 nnoremap ,uc :<C-u>Unite file<CR>
@@ -97,7 +101,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'open-browser.vim'
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'tomasr/molokai'
-
+call neobundle#end()
 " vim-indent-guides
 " na/vim-smartchr'Vim 起動時 vim-indent-guides を自動起動
 colorscheme molokai
