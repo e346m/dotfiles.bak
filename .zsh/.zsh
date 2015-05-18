@@ -1,1 +1,0 @@
-/Users/eiji/dotfiles/.zsh
