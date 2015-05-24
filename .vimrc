@@ -7,20 +7,25 @@ set showmatch "括弧入力時の対応する括弧を表示
 set laststatus=2 "ステータスラインを常に表示
 set guifont=Ricty-Regular:h16 "プログラミング用のfontをRictyに変更する。
 set backspace=indent,eol,start
+set colorcolumn=80
+set wrap
 syntax on "カラー表示
 set smartindent "オートインデント
 " tab関連
-set expandtab "タブの代わりに空白文字挿入
-set ts=4 sw=4 sts=0 "タブは半角4文字分のスペース
+set expandtab "タブの代わりに空白文字挿入(soft tab化)
+set ts=2 sw=2 sts=2 "タブは半角2文字分のスペース
 " ファイルを開いた際に、前回終了時の行で起動
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-
 set ignorecase "検索文字列が小文字の場合は大文字小文字を区別なく検索する
 set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
 set wrapscan "検索時に最後まで行ったら最初に戻る
 set noincsearch "検索文字列入力時に順次対象文字列にヒットさせない
-set nohlsearch "検索結果文字列の非ハイライト表示
+set hlsearch "検索結果文字列の非ハイライト表示
 
+inoremap + <Space>+<Space>
+"inoremap <C-mi> <Space>-<Space>
+"inoremap <C-eq> <Space>=<Space>
+"inoremap <C> <Space>/<Space>
 "----encoding
 :set encoding=utf-8
 :set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
@@ -30,9 +35,14 @@ set nohlsearch "検索結果文字列の非ハイライト表示
 set clipboard+=unnamed
 set clipboard+=autoselect
 
+nnoremap N :NERDTree<CR> 
+nnoremap j gj
+nnoremap k gk
 nnoremap <Space>. :<Esc>:edit $MYVIMRC<Enter>
 nnoremap <Space>s :<Esc>:source $MYVIMRC<Enter>
 inoremap <silent> jj <ESC>
+inoremap <silent> <C-o> <ESC>o
+inoremap <silent> <C-a> <ESC>A
 inoremap <C>dw dw
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
@@ -50,6 +60,7 @@ inoremap \|\| \|\|<Left>
 inoremap , ,<Space>
 "autocmd vimenter * NERDTree
 set nocompatible
+nnoremap ,t :tabnew <buffer>
 
 filetype off
 if has('vim_starting')
@@ -63,11 +74,11 @@ endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundle 'Shougo/unite.vim'
-nnoremap ,ub :<C-u>Unite buffer<CR>
-nnoremap ,uc :<C-u>Unite file<CR>
-nnoremap ,uh :<C-u>Unite file_mru<CR>
-nnoremap ,uf  :<c-u>UniteWithBufferDir -buffer-name=files file -direction=botright <cr>
-noremap ,ur     :Unite -buffer-name=register register<CR>
+nnoremap ,b :<C-u>Unite buffer<CR>
+nnoremap ,c :<C-u>Unite file<CR>
+nnoremap ,h :<C-u>Unite file_mru<CR>
+nnoremap ,f  :<c-u>UniteWithBufferDir -buffer-name=files file -direction=botright <cr>
+noremap ,r     :Unite -buffer-name=register register<CR>
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Align'
 NeoBundle 'vim-ruby/vim-ruby'
@@ -101,6 +112,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'open-browser.vim'
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'tomasr/molokai'
+NeoBundle 'Shougo/vimfiler'
 call neobundle#end()
 " vim-indent-guides
 " na/vim-smartchr'Vim 起動時 vim-indent-guides を自動起動
