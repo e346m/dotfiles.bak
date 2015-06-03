@@ -10,3 +10,5 @@
 	editor = vim -c \"set fenc=utf-8\"
 [push]
 	default = matching
+[credential]
+	helper = osxkeychain

@@ -1,4 +1,5 @@
 #オプション
+
 setopt auto_cd
 setopt auto_pushd
 
@@ -72,5 +73,5 @@ function zman(){
 }
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init - zsh)"
+eval "$(rbenv init -)"
 

@@ -13,22 +13,23 @@ syntax on "カラー表示
 set smartindent "オートインデント
 " tab関連
 set expandtab "タブの代わりに空白文字挿入(soft tab化)
-set ts=2 sw=2 sts=2 "タブは半角2文字分のスペース
+autocmd FileType haml       setlocal sw=2 sts=2 ts=2 et
+autocmd FileType ruby       setlocal ts=2 sw=2 sts=2 "タブは半角2文字分のスペース
 " ファイルを開いた際に、前回終了時の行で起動
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 set ignorecase "検索文字列が小文字の場合は大文字小文字を区別なく検索する
 set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
 set wrapscan "検索時に最後まで行ったら最初に戻る
 set noincsearch "検索文字列入力時に順次対象文字列にヒットさせない
-set hlsearch "検索結果文字列の非ハイライト表示
+set nohlsearch "検索結果文字列の非ハイライト表示
 
-inoremap + <Space>+<Space>
+
 "inoremap <C-mi> <Space>-<Space>
 "inoremap <C-eq> <Space>=<Space>
 "inoremap <C> <Space>/<Space>
 "----encoding
 :set encoding=utf-8
-:set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
+:set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
 :set fileformats=mac,unix,dos
 
 "----copy
@@ -113,6 +114,8 @@ NeoBundle 'open-browser.vim'
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'Shougo/vimfiler'
+NeoBundle 'tpope/vim-haml'
+NeoBundle 'yggdroot/indentLine'
 call neobundle#end()
 " vim-indent-guides
 " na/vim-smartchr'Vim 起動時 vim-indent-guides を自動起動
@@ -124,12 +127,14 @@ let g:indent_guides_start_level=2
 let g:indent_guides_auto_colors=0
 " 奇数番目のインデントの色
 "autocmd VimEnter,Colorscheme
-:hi IndentGuidesOdd  guibg=#444433 ctermbg=black
+":hi IndentGuidesOdd  guibg=#444433 ctermbg=black
 " 偶数番目のインデントの色
 "autocmd VimEnter,Colorscheme
-:hi IndentGuidesEven guibg=#333344 ctermbg=darkgrey
+":hi IndentGuidesEven guibg=#333344 ctermbg=darkgrey
 " ガイドの幅
 let g:indent_guides_guide_size = 1
+
+set list listchars=tab:\¦\
 
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
@@ -153,7 +158,9 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
+autocmd BufNewFile,BufRead *.haml,*.hamlbars,*.hamlc setf haml
+autocmd BufNewFile,BufRead *.sass setf sass
+autocmd BufNewFile,BufRead *.scss setf scss
 :
 
 filetype plugin on
