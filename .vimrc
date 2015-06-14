@@ -13,8 +13,9 @@ syntax on "カラー表示
 set smartindent "オートインデント
 " tab関連
 set expandtab "タブの代わりに空白文字挿入(soft tab化)
-autocmd FileType haml       setlocal sw=2 sts=2 ts=2 et
-autocmd FileType ruby       setlocal ts=2 sw=2 sts=2 "タブは半角2文字分のスペース
+set sw=2 sts=2 ts=2
+"autocmd FileType haml       setlocal sw=2 sts=2 ts=2 et
+"autocmd FileType ruby       setlocal ts=2 sw=2 sts=2 "タブは半角2文字分のスペース
 " ファイルを開いた際に、前回終了時の行で起動
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 set ignorecase "検索文字列が小文字の場合は大文字小文字を区別なく検索する
@@ -22,7 +23,13 @@ set smartcase "検索文字列に大文字が含まれている場合は区別�
 set wrapscan "検索時に最後まで行ったら最初に戻る
 set noincsearch "検索文字列入力時に順次対象文字列にヒットさせない
 set nohlsearch "検索結果文字列の非ハイライト表示
+autocmd BufWritePre * :%s/\s\+$//ge "行末のスペース削除
 
+
+set foldmethod=manual
+autocmd FileType ruby :set foldmethod=indent
+autocmd FileType ruby :set foldlevel=1
+autocmd FileType ruby :set foldnestmax=2
 
 "inoremap <C-mi> <Space>-<Space>
 "inoremap <C-eq> <Space>=<Space>
@@ -36,11 +43,13 @@ set nohlsearch "検索結果文字列の非ハイライト表示
 set clipboard+=unnamed
 set clipboard+=autoselect
 
-nnoremap N :NERDTree<CR> 
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap <Space>. :<Esc>:edit $MYVIMRC<Enter>
 nnoremap <Space>s :<Esc>:source $MYVIMRC<Enter>
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 inoremap <silent> jj <ESC>
 inoremap <silent> <C-o> <ESC>o
 inoremap <silent> <C-a> <ESC>A
@@ -61,7 +70,6 @@ inoremap \|\| \|\|<Left>
 inoremap , ,<Space>
 "autocmd vimenter * NERDTree
 set nocompatible
-nnoremap ,t :tabnew <buffer>
 
 filetype off
 if has('vim_starting')

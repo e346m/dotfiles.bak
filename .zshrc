@@ -56,8 +56,6 @@ RPROMPT="%v"
 
 [[ -f $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-
-
 #エイリアス
 alias ls='ls -F'
 alias la='ls -a'
