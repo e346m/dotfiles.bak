@@ -62,8 +62,13 @@ alias la='ls -a'
 alias ll='ls -l'
 alias -g G='|grep'
 alias gs='git status'
+alias gr='git rebase -i'
+alias gp='git pull'
+alias gc='git co'
+alias gst='git stash'
+alias gsp='git stash pop'
 alias tm='/usr/local/bin/tmuxx'
-
+alias diff='diff -u'
 
 #function
 function zman(){
