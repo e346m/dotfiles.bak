@@ -36,6 +36,7 @@ autocmd FileType ruby :set foldnestmax=2
 "inoremap <C> <Space>/<Space>
 "----encoding
 :set encoding=utf-8
+:set fileencoding=utf-8
 :set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
 :set fileformats=mac,unix,dos
 
@@ -68,6 +69,8 @@ inoremap `' `'<Left>
 inoremap %% %%<Left>
 inoremap \|\| \|\|<Left>
 inoremap , ,<Space>
+nnoremap gww ZZ
+nnoremap gqq ZQ
 "autocmd vimenter * NERDTree
 set nocompatible
 
@@ -124,6 +127,7 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'tpope/vim-haml'
 NeoBundle 'yggdroot/indentLine'
+NeoBundle 'slim-template/vim-slim'
 call neobundle#end()
 " vim-indent-guides
 " na/vim-smartchr'Vim 起動時 vim-indent-guides を自動起動
