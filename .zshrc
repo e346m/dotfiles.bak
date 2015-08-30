@@ -24,8 +24,7 @@ zstyle ':zle:*' word-style unspecified
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 #プロンプトの表示
-RPROMPT="[%~]" #current dirctoryのpathを右端表示
-
+PROMPT="%F{green}%n%F{cyan}@%T%F{reset-color}$ "
 #コマンド履歴の保存
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
