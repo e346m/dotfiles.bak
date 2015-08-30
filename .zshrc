@@ -77,3 +77,9 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
+#テモナ開発環境変数
+aws_config
+export AWS_REGION='ap-northeast-1'
+# RepeupCureDevelop
+export ACCESS_KEY_ID='AKIAIKUJ7EXNAEPWY4HQ'
+export SECRET_ACCESS_KEY='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'
