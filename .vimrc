@@ -44,7 +44,6 @@ autocmd FileType ruby :set foldnestmax=2
 set clipboard+=unnamed
 set clipboard+=autoselect
 
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap <Space>. :<Esc>:edit $MYVIMRC<Enter>
@@ -71,7 +70,6 @@ inoremap \|\| \|\|<Left>
 inoremap , ,<Space>
 nnoremap gww ZZ
 nnoremap gqq ZQ
-"autocmd vimenter * NERDTree
 set nocompatible
 
 filetype off
@@ -116,7 +114,6 @@ NeoBundle 'jpalardy/vim-slime'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'kana/vim-fakeclip.git'
 NeoBundle 'rails.vim'
-NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Shougo/neocomplete.vim'
@@ -146,6 +143,9 @@ let g:indent_guides_auto_colors=0
 ":hi IndentGuidesEven guibg=#333344 ctermbg=darkgrey
 " ガイドの幅
 let g:indent_guides_guide_size = 1
+"default Filer of vim
+let g:vimfiler_as_default_explorer=1
+nnoremap <C-e> :<C-U>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
 
 set list listchars=tab:\¦\
 
