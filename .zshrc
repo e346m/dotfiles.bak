@@ -24,7 +24,9 @@ zstyle ':zle:*' word-style unspecified
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 #プロンプトの表示
-PROMPT="%F{green}%n%F{cyan}@%T%F{reset-color}$ "
+PROMPT="
+%B%F{226}$%f%b%F{green}%n%f %B@%b %F{166}%d%f%B::%b%F{033}%@%f
+%F{magenta} ===> %f"
 #コマンド履歴の保存
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000

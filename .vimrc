@@ -37,7 +37,7 @@ autocmd FileType ruby :set foldnestmax=2
 "----encoding
 :set encoding=utf-8
 :set fileencoding=utf-8
-:set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+:set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 :set fileformats=mac,unix,dos
 
 "----copy
@@ -145,7 +145,7 @@ let g:indent_guides_auto_colors=0
 let g:indent_guides_guide_size = 1
 "default Filer of vim
 let g:vimfiler_as_default_explorer=1
-nnoremap <C-e> :<C-U>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
+nnoremap <C-e> :<C-U>VimFilerTab<CR>
 
 set list listchars=tab:\¦\
 
