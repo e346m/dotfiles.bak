@@ -50,6 +50,10 @@ nnoremap <Space>. :<Esc>:edit $MYVIMRC<Enter>
 nnoremap <Space>s :<Esc>:source $MYVIMRC<Enter>
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+nnoremap <C-k> <C-w>k
+nnoremap <C-j> <C-w>j
+nnoremap <C-n> gt
+nnoremap <C-p> gt
 inoremap <silent> jj <ESC>
 inoremap <silent> <C-o> <ESC>o
 inoremap <silent> <C-a> <ESC>A
