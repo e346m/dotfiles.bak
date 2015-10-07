@@ -149,7 +149,9 @@ let g:indent_guides_auto_colors=0
 let g:indent_guides_guide_size = 1
 "default Filer of vim
 let g:vimfiler_as_default_explorer=1
-nnoremap <C-e> :<C-U>VimFilerTab<CR>
+nnoremap <C-e> :<C-U>VimFiler<CR>
+nnoremap <C-t> :<C-U>VimFilerTab<CR>
+nnoremap <C-r> :<C-U>vsplit<Cr>:<C-U>split<Cr>
 
 set list listchars=tab:\¦\
 
