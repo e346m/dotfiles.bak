@@ -25,7 +25,6 @@ set noincsearch "検索文字列入力時に順次対象文字列にヒットさ
 set nohlsearch "検索結果文字列の非ハイライト表示
 autocmd BufWritePre * :%s/\s\+$//ge "行末のスペース削除
 
-
 set foldmethod=manual
 autocmd FileType ruby :set foldmethod=indent
 autocmd FileType ruby :set foldlevel=1
@@ -53,7 +52,7 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
 nnoremap <C-n> gt
-nnoremap <C-p> gt
+nnoremap <C-p> gT
 inoremap <silent> jj <ESC>
 inoremap <silent> <C-o> <ESC>o
 inoremap <silent> <C-a> <ESC>A
@@ -75,6 +74,7 @@ inoremap , ,<Space>
 nnoremap gww ZZ
 nnoremap gqq ZQ
 set nocompatible
+
 
 filetype off
 if has('vim_starting')
@@ -130,6 +130,7 @@ NeoBundle 'tpope/vim-haml'
 NeoBundle 'yggdroot/indentLine'
 NeoBundle 'slim-template/vim-slim'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'airblade/vim-gitgutter'
 call neobundle#end()
 " vim-indent-guides
 " na/vim-smartchr'Vim 起動時 vim-indent-guides を自動起動
@@ -151,7 +152,7 @@ let g:indent_guides_guide_size = 1
 let g:vimfiler_as_default_explorer=1
 nnoremap <C-e> :<C-U>VimFiler<CR>
 nnoremap <C-t> :<C-U>VimFilerTab<CR>
-nnoremap <C-r> :<C-U>vsplit<Cr>:<C-U>split<Cr>
+nnoremap <C-g> :<C-U>vsplit<Cr>
 
 set list listchars=tab:\¦\
 
