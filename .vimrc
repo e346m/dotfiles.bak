@@ -130,6 +130,7 @@ NeoBundle 'tpope/vim-haml'
 NeoBundle 'yggdroot/indentLine'
 NeoBundle 'slim-template/vim-slim'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle "elixir-lang/vim-elixir"
 call neobundle#end()
 " vim-indent-guides
 " na/vim-smartchr'Vim 起動時 vim-indent-guides を自動起動
