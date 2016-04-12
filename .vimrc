@@ -78,10 +78,10 @@ set nocompatible
 
 filetype off
 if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim
-    call neobundle#begin(expand('~/.vim/bundle/'))
-    NeoBundleFetch 'Shougo/neobundle.vim'
-    call neobundle#end()
+  set runtimepath+=~/.vim/bundle/neobundle.vim
+  call neobundle#begin(expand('~/.vim/bundle/'))
+  NeoBundleFetch 'Shougo/neobundle.vim'
+  call neobundle#end()
 endif
 
 " ここにインストールしたいプラグインのリストを書く
@@ -99,39 +99,42 @@ NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails', { 'autoload' : {'filetypes' : ['haml', 'ruby', 'eruby'] }}
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', {
-            \ 'build' :{
-            \'windows' : 'make -f make_mingw32.mak',
-            \'cygwin' : 'make -f make_cygwin.mak',
-            \'mac' : 'make -f make_mac.mak',
-            \ 'unix' : 'make -f make_unix.mak',
-            \},
-            \}
+      \ 'build' :{
+      \'windows' : 'make -f make_mingw32.mak',
+      \'cygwin' : 'make -f make_cygwin.mak',
+      \'mac' : 'make -f make_mac.mak',
+      \ 'unix' : 'make -f make_unix.mak',
+      \},
+      \}
 NeoBundleLazy 'alpaca-tc/vim-endwise.git', {
-            \ 'autoload' : {
-            \   'insert' : 1,
-            \ }}
+      \ 'autoload' : {
+      \   'insert' : 1,
+      \ }}
 
-NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'jpalardy/vim-slime'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'kana/vim-fakeclip.git'
-NeoBundle 'rails.vim'
-NeoBundle 'tomasr/molokai'
-NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'open-browser.vim'
-NeoBundle 'kana/vim-smartchr'
-NeoBundle 'tomasr/molokai'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'tpope/vim-haml'
-NeoBundle 'yggdroot/indentLine'
-NeoBundle 'slim-template/vim-slim'
-NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle "osyo-manga/vim-over"
+NeoBundle "Shougo/vimshell"
+NeoBundle "Shougo/neosnippet"
+NeoBundle "jpalardy/vim-slime"
+NeoBundle "scrooloose/syntastic"
+NeoBundle "kana/vim-fakeclip.git"
+NeoBundle "rails.vim"
+NeoBundle "tomasr/molokai"
+NeoBundle "Lokaltog/vim-powerline"
+NeoBundle "Shougo/neocomplete.vim"
+NeoBundle "nathanaelkane/vim-indent-guides"
+NeoBundle "open-browser.vim"
+NeoBundle "kana/vim-smartchr"
+NeoBundle "tomasr/molokai"
+NeoBundle "Shougo/vimfiler"
+NeoBundle "tpope/vim-haml"
+NeoBundle "yggdroot/indentLine"
+NeoBundle "slim-template/vim-slim"
+NeoBundle "kchmck/vim-coffee-script"
 NeoBundle "elixir-lang/vim-elixir"
-NeoBundle 'airblade/vim-gitgutter'
+NeoBundle "airblade/vim-gitgutter"
+NeoBundle "ngmy/vim-rubocop"
+NeoBundle "aklt/plantuml-syntax"
+NeoBundle "rking/ag.vim"
 call neobundle#end()
 " vim-indent-guides
 " na/vim-smartchr'Vim 起動時 vim-indent-guides を自動起動
@@ -155,6 +158,8 @@ nnoremap <C-e> :<C-U>VimFiler<CR>
 nnoremap <C-t> :<C-U>VimFilerTab<CR>
 nnoremap <C-g> :<C-U>vsplit<Cr>
 
+let g:plantuml_executable_script="~/uml/plantuml"
+
 set list listchars=tab:\¦\
 
 let g:neocomplete#enable_at_startup = 1
@@ -163,12 +168,12 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '¥*ku¥*'
 let g:neocomplete#force_overwrite_completefunc=1
 let g:neocomplete#sources#dictionary#dictionaries = {
-            \ 'default' : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
-            \     'scheme' : $HOME.'/.gosh_completions'
-            \            }
+      \ 'default' : '',
+      \ 'vimshell' : $HOME.'/.vimshell_hist',
+      \     'scheme' : $HOME.'/.gosh_completions'
+      \            }
 if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+  let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '¥h¥w*'
 inoremap <expr><C-g>  neocomplete#undo_completion()

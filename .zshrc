@@ -1,46 +1,46 @@
-#$B%*%W%7%g%s(B
+#option
 
 setopt auto_cd
 setopt auto_pushd
 
-#$BJd40(B
+#補完
 #for-zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 
-#$BJd405!G=$rM-8z$K$9$k(B
+#補完機能を有効にする
 autoload -Uz compinit
 compinit -u
-#$BJd40(B $B%a%K%e!<$NA*Br%b!<%I(B
+#補完 メニューの選択モード
 zstyle ':completion:*:default' menu select=2
 
-#$BJ8;z$N6h@Z$j@_Dj(B
+#文字の区切り設定
 autoload -Uz select-word-style
 select-word-style default
 zstyle ':zle:*' word-chars "/=;@;{}.|"
 zstyle ':zle:*' word-style unspecified
 
-#$BBgJ8;z$H>.J8;z$r6hJL$7$J$$(B
+#大文字と小文字を区別しない
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-#$B%W%m%s%W%H$NI=<((B
+#プロンプトの表示
 PROMPT="
 %B%F{226}$%f%b%F{green}%n%f %B@%b %F{166}%d%f%B::%b%F{033}%@%f
 %F{magenta} ===> %f"
-#$B%3%^%s%IMzNr$NJ]B8(B
+#コマンド履歴の保存
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-#dirctory$BMzNr(B
+#dirctory履歴
 autoload -Uz add-zsh-hook
 autoload -Uz chpwd_recent_dirs cdr
 add-zsh-hook chpwd chpwd_recent_dirs
 
-#$BJ#?t(Brename$B5!G=(B
+#複数rename機能
 autoload -Uz zmv
 
-#$B%V%i%s%A>pJs(B
+#ブランチ情報
 autoload -Uz add-zsh-hook
 autoload -Uz vcs_info
 zstyle ':vcs_info:*:' formats '(%s)-[%b]'
@@ -53,11 +53,10 @@ function _update_vcs_info_msg(){
 add-zsh-hook precmd _update_vcs_info_msg
 RPROMPT="%v"
 
-#$B%3%^%s%I%i%$%s(Bsyntax
-
+#コマンドラインsyntax
 [[ -f $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-#$B%(%$%j%"%9(B
+#エイリアス
 alias ls='ls -F'
 alias la='ls -a'
 alias ll='ls -l'
