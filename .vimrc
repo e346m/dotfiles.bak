@@ -135,6 +135,8 @@ NeoBundle "airblade/vim-gitgutter"
 NeoBundle "ngmy/vim-rubocop"
 NeoBundle "aklt/plantuml-syntax"
 NeoBundle "rking/ag.vim"
+NeoBundle "fatih/vim-go"
+NeoBundle "tpope/vim-fugitive"
 call neobundle#end()
 " vim-indent-guides
 " na/vim-smartchr'Vim 起動時 vim-indent-guides を自動起動
