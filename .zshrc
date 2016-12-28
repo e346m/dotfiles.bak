@@ -7,7 +7,6 @@ setopt auto_pushd
 #for-zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-
 #補完機能を有効にする
 autoload -Uz compinit
 compinit -u
@@ -25,7 +24,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 #プロンプトの表示
 PROMPT="
-%B%F{226}$%f%b%F{green}%n%f %B@%b %F{166}%d%f%B::%b%F{033}%@%f
+%B%F{226}$%f%b%F{green}%n%f%B@%b%F{166}%d%f%B::%b%F{033}%@%f
 %F{magenta} ===> %f"
 #コマンド履歴の保存
 HISTFILE=~/.zsh_history
@@ -53,9 +52,6 @@ function _update_vcs_info_msg(){
 add-zsh-hook precmd _update_vcs_info_msg
 RPROMPT="%v"
 
-#コマンドラインsyntax
-[[ -f $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 #エイリアス
 alias ls='ls -F'
 alias la='ls -a'
@@ -76,7 +72,24 @@ function zman(){
 }
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+eval "$(rbenv init -)"
 
-export GOPATH=$HOME/.go
+#環境変数読み込み
+if [ -f .*.env ]; then
+  source ~/.*.env
+fi
+
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+#zplug管理
+if ! zplug check; then
+    zplug install
+fi
+
+#コマンドラインsyntax
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+# プラグインを読み込み、コマンドにパスを通す
+zplug load
