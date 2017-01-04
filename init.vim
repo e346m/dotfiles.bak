@@ -9,7 +9,6 @@ set guifont=Ricty-Regular:h16 "プログラミング用のfontをRictyに変更�
 set backspace=indent,eol,start
 set colorcolumn=80
 set wrap
-syntax on "カラー表示
 set smartindent "オートインデント
 " tab関連
 set expandtab "タブの代わりに空白文字挿入(soft tab化)
@@ -49,6 +48,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
 nnoremap <C-n> gt
 nnoremap <C-p> gT
+inoremap <silent> jj <ESC>
 inoremap <silent> <C-o> <ESC>o
 inoremap <silent> <C-a> <ESC>A
 inoremap <C>dw dw
@@ -83,5 +83,37 @@ autocmd BufNewFile,BufRead *.haml,*.hamlbars,*.hamlc setf haml
 autocmd BufNewFile,BufRead *.sass setf sass
 autocmd BufNewFile,BufRead *.scss setf scss
 
+"plugin
+
+"dein.vim dark power
+let s:dein_dir = expand('~/.config/nvim')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+let g:python3_host_prog = expand('/usr/local/var/pyenv/shims/python')
+
+"check dein
+if !isdirectory(s:dein_repo_dir)
+  echo "install dein.vim..."
+  execute '!git clone git://github.com/Shougo/dein.vim' s:dein_repo_dir
+endif
+execute 'set runtimepath^=' . s:dein_repo_dir
+
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+  let g:rc_dir    = expand('~/.vim/rc')
+  let s:toml      = g:rc_dir . '/dein.toml'
+  call dein#load_toml(s:toml, {'lazy': 0})
+  call dein#end()
+  call dein#save_state()
+endif
+if dein#check_install()
+  call dein#install()
+endif
+"vimfiler settings
+let g:vimfiler_as_default_explorer=1
+nnoremap <C-e> :<C-U>VimFiler<CR>
+nnoremap <C-t> :<C-U>VimFilerTab<CR>
+"colorschem
+colorscheme Benokai
+syntax on "カラー表示
 filetype plugin on
 filetype indent on

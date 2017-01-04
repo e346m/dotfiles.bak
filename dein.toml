@@ -1,0 +1,12 @@
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+if = 'has("python3")'
+
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'flazz/vim-colorschemes'

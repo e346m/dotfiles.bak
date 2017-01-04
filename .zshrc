@@ -94,3 +94,8 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 # プラグインを読み込み、コマンドにパスを通す
 zplug load
+
+#python
+export PYENV_ROOT="/usr/local/var/pyenv"
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
