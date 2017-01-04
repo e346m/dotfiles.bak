@@ -7,7 +7,7 @@
 	co = checkout
 
 [core]
-	editor = vim -c \"set fenc=utf-8\"
+	editor = nvim -c \"set fenc=utf-8\"
 [push]
 	default = matching
 [credential]

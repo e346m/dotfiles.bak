@@ -65,6 +65,7 @@ alias gst='git stash'
 alias gsp='git stash pop'
 alias tm='/usr/local/bin/tmuxx'
 alias diff='diff -u'
+alias vim='nvim'
 
 #function
 function zman(){
@@ -76,7 +77,7 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
 eval "$(rbenv init -)"
 
 #環境変数読み込み
-if [ -f .*.env ]; then
+if [ -f ~/.*.env ]; then
   source ~/.*.env
 fi
 
