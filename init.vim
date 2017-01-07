@@ -115,5 +115,4 @@ nnoremap <C-t> :<C-U>VimFilerTab<CR>
 "colorschem
 colorscheme Benokai
 syntax on "カラー表示
-filetype plugin on
-filetype indent on
+filetype plugin indent on
