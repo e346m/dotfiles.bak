@@ -19,3 +19,7 @@ repo = 'thinca/vim-quickrun'
 
 [[plugins]]
 repo = 'neomake/neomake'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = 'let g:deoplete#enable_at_startup = 1'

@@ -115,4 +115,7 @@ nnoremap <C-t> :<C-U>VimFilerTab<CR>
 "colorschem
 colorscheme Benokai
 syntax on "カラー表示
+"rubocop
+autocmd! BufWritePost * Neomake
+
 filetype plugin indent on

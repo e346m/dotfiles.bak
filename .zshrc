@@ -23,9 +23,8 @@ zstyle ':zle:*' word-style unspecified
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 #プロンプトの表示
-PROMPT="
-%B%F{226}$%f%b%F{green}%n%f%B@%b%F{166}%d%f%B::%b%F{033}%@%f
-%F{magenta} ===> %f"
+PROMPT="%f%b%F{green}%n%f%B@%b%F{166}%d%f%B %b%F{033}%@%f::%F{magenta}> %f"
+
 #コマンド履歴の保存
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
@@ -52,10 +51,19 @@ function _update_vcs_info_msg(){
 add-zsh-hook precmd _update_vcs_info_msg
 RPROMPT="%v"
 
+#gitのroot repositoryに移動する
+function cdg()
+{
+    cd ./$(git rev-parse --show-cdup)
+    if [ $# = 1 ]; then
+        cd $1
+    fi
+}
+
 #エイリアス
-alias ls='ls -F'
-alias la='ls -a'
-alias ll='ls -l'
+alias ls='ls -Fh'
+alias la='ls -ah'
+alias ll='ls -lh'
 alias -g G='|grep'
 alias gs='git status'
 alias gr='git rebase -i'
