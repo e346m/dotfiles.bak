@@ -23,7 +23,7 @@ zstyle ':zle:*' word-style unspecified
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 #プロンプトの表示
-PROMPT="%f%b%F{green}%n%f%B@%b%F{166}%d%f%B %b%F{033}%@%f::%F{magenta}> %f"
+PROMPT="%f%b%F{green}%n%f%B@%b%F{166}%d%f%B%b%F{033}%@%f::%F{magenta}> %f"
 
 #コマンド履歴の保存
 HISTFILE=~/.zsh_history
