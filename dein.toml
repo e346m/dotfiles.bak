@@ -51,3 +51,10 @@ hook_source = '''
 on_i  = 1
 on_ft = ['snippet']
 depends = ['neosnippet-snippets']
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+hook_add = 'let g:rustfmt_autosave = 1'
+
+[[plugins]]
+repo = 'racer-rust/vim-racer'

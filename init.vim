@@ -29,12 +29,6 @@ autocmd FileType ruby :set foldmethod=indent
 autocmd FileType ruby :set foldlevel=1
 autocmd FileType ruby :set foldnestmax=2
 
-"----encoding
-:set encoding=utf-8
-:set fileencoding=utf-8
-:set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
-:set fileformats=mac,unix,dos
-
 "----copy
 set clipboard+=unnamedplus
 

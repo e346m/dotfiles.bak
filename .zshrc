@@ -88,6 +88,9 @@ eval "$(rbenv init -)"
 if [ -f ~/.*.env ]; then
   source ~/.*.env
 fi
+if [ -f ~/.*/env ]; then
+  source ~/.*/env
+fi
 
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
