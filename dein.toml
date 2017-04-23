@@ -58,3 +58,24 @@ hook_add = 'let g:rustfmt_autosave = 1'
 
 [[plugins]]
 repo = 'racer-rust/vim-racer'
+
+[[plugins]]
+repo = 'mhartington/nvim-typescript'
+hook_add = 'let g:deoplete#enable_at_startup = 1'
+
+[[plugins]]
+repo = 'HerringtonDarkholme/yats.vim'
+
+[[plugins]]
+repo = 'sheerun/vim-polyglot'
+
+
+[[plugins]]
+repo = 'c-brenn/phoenix.vim'
+
+[[plugins]]
+repo =  'tpope/vim-projectionist'
+
+[[plugins]]
+'ludovicchabant/vim-gutentags'
+hook_add = 'let g:gutentags_cache_dir = "~/.tags_cache"'

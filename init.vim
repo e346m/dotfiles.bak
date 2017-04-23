@@ -5,7 +5,6 @@ set ruler "ルーラーの表示
 set showcmd "入力中のコマンドをステータスに表示する
 set showmatch "括弧入力時の対応する括弧を表示
 set laststatus=2 "ステータスラインを常に表示
-set guifont=Ricty-Regular:h16 "プログラミング用のfontをRictyに変更する。
 set backspace=indent,eol,start
 set colorcolumn=80
 set wrap
@@ -13,15 +12,17 @@ set smartindent "オートインデント
 " tab関連
 set expandtab "タブの代わりに空白文字挿入(soft tab化)
 set sw=2 sts=2 ts=2
-"autocmd FileType haml       setlocal sw=2 sts=2 ts=2 et
-"autocmd FileType ruby       setlocal ts=2 sw=2 sts=2 "タブは半角2文字分のスペース
+
 " ファイルを開いた際に、前回終了時の行で起動
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+
 set ignorecase "検索文字列が小文字の場合は大文字小文字を区別なく検索する
 set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
 set wrapscan "検索時に最後まで行ったら最初に戻る
-set noincsearch "検索文字列入力時に順次対象文字列にヒットさせない
-set nohlsearch "検索結果文字列の非ハイライト表示
+set incsearch "検索文字列入力時に順次対象文字列にヒットさる
+set hlsearch "Highlight search result
+map <CR> :nohl<CR>
+
 autocmd BufWritePre * :%s/\s\+$//ge "行末のスペース削除
 
 set foldmethod=manual
@@ -102,14 +103,42 @@ endif
 if dein#check_install()
   call dein#install()
 endif
+
 "vimfiler settings
 let g:vimfiler_as_default_explorer=1
 nnoremap <C-e> :<C-U>VimFiler<CR>
 nnoremap <C-t> :<C-U>VimFilerTab<CR>
+
 "colorschem
 colorscheme Benokai
 syntax on "カラー表示
-"rubocop
+
 autocmd! BufWritePost * Neomake
+let g:neomake_markdown_enabled_makers = []
+" Configure a nice credo setup, courtesy https://github.com/neomake/neomake/pull/300
+let g:neomake_elixir_enabled_makers = ['mycredo']
+function NeomakeCredoErrorType(entry)
+    if a:entry.type ==# 'F'      " Refactoring opportunities
+        let type = 'W'
+    elseif a:entry.type ==# 'D'  " Software design suggestions
+        let type = 'I'
+    elseif a:entry.type ==# 'W'  " Warnings
+        let type = 'W'
+    elseif a:entry.type ==# 'R'  " Readability suggestions
+        let type = 'I'
+    elseif a:entry.type ==# 'C'  " Convention violation
+        let type = 'W'
+    else
+        let type = 'M'           " Everything else is a message
+    endif
+    let a:entry.type = type
+endfunction
+
+let g:neomake_elixir_mycredo_maker = {
+      \ 'exe': 'mix',
+      \ 'args': ['credo', 'list', '%:p', '--format=oneline'],
+      \ 'errorformat': '[%t] %. %f:%l:%c %m,[%t] %. %f:%l %m',
+      \ 'postprocess': function('NeomakeCredoErrorType')
+      \ }
 
 filetype plugin indent on
