@@ -113,7 +113,10 @@ nnoremap <C-t> :<C-U>VimFilerTab<CR>
 colorscheme Benokai
 syntax on "カラー表示
 
-autocmd! BufWritePost * Neomake
+augroup neomake_run
+  autocmd! BufWritePost * Neomake
+  autocmd! VimLeave *.js  !eslint_d stop
+augroup END
 let g:neomake_markdown_enabled_makers = []
 " Configure a nice credo setup, courtesy https://github.com/neomake/neomake/pull/300
 let g:neomake_elixir_enabled_makers = ['mycredo']
@@ -133,12 +136,14 @@ function NeomakeCredoErrorType(entry)
     endif
     let a:entry.type = type
 endfunction
-
 let g:neomake_elixir_mycredo_maker = {
       \ 'exe': 'mix',
       \ 'args': ['credo', 'list', '%:p', '--format=oneline'],
       \ 'errorformat': '[%t] %. %f:%l:%c %m,[%t] %. %f:%l %m',
       \ 'postprocess': function('NeomakeCredoErrorType')
       \ }
+
+" Lint for JS
+let g:neomake_javascript_enabled_makers = ['eslint_d']
 
 filetype plugin indent on

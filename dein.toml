@@ -69,7 +69,6 @@ repo = 'HerringtonDarkholme/yats.vim'
 [[plugins]]
 repo = 'sheerun/vim-polyglot'
 
-
 [[plugins]]
 repo = 'c-brenn/phoenix.vim'
 
