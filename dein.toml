@@ -76,5 +76,11 @@ repo = 'c-brenn/phoenix.vim'
 repo =  'tpope/vim-projectionist'
 
 [[plugins]]
-'ludovicchabant/vim-gutentags'
+repo = 'ludovicchabant/vim-gutentags'
 hook_add = 'let g:gutentags_cache_dir = "~/.tags_cache"'
+
+[[plugins]]
+repo = 'Shougo/vinarise.vim'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
