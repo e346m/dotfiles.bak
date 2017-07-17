@@ -35,6 +35,9 @@ repo = 'lervag/vimtex'
 repo = 'neomake/neomake'
 
 [[plugins]]
+repo = 'epilande/neomake-local-eslint.vim'
+
+[[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = 'let g:deoplete#enable_at_startup = 1'
 

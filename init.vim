@@ -113,14 +113,10 @@ nnoremap <C-t> :<C-U>VimFilerTab<CR>
 colorscheme Benokai
 syntax on "カラー表示
 
-"augroup neomake_run
-"  autocmd! BufWritePost * Neomake
-"  autocmd! VimLeave *.js  !eslint_d stop
-"augroup END
-autocmd! BufWritePost * Neomake
+"Neomake
+autocmd! BufWritePost,BufEnter * Neomake
 let g:neomake_markdown_enabled_makers = []
 " Configure a nice credo setup, courtesy https://github.com/neomake/neomake/pull/300
-let g:neomake_elixir_enabled_makers = ['mycredo']
 function! NeomakeCredoErrorType(entry)
     if a:entry.type ==# 'F'      " Refactoring opportunities
         let type = 'W'
@@ -137,14 +133,16 @@ function! NeomakeCredoErrorType(entry)
     endif
     let a:entry.type = type
 endfunction
+let g:neomake_elixir_enabled_makers = ['mycredo']
 let g:neomake_elixir_mycredo_maker = {
       \ 'exe': 'mix',
       \ 'args': ['credo', 'list', '%:p', '--format=oneline'],
       \ 'errorformat': '[%t] %. %f:%l:%c %m,[%t] %. %f:%l %m',
       \ 'postprocess': function('NeomakeCredoErrorType')
       \ }
-
-" Lint for JS
-" let g:neomake_javascript_enabled_makers = ['eslint_d']
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
+let g:neomake_error_sign = {'text': '>>', 'texthl': 'ErrorMsg'}
+let g:neomake_warning_sign = {'text': '>>',  'texthl': 'Todo'}
 
 filetype plugin indent on
