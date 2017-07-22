@@ -74,6 +74,9 @@ alias gsp='git stash pop'
 alias tm='/usr/local/bin/tmuxx'
 alias diff='diff -u'
 alias vim='nvim'
+# prevent .configure script from orverriding *-config
+# remove pyenv path when using Homebrew
+alias brew="env PATH=${PATH/\/usr\/local\/var\/pyenv\/shims:/} brew"
 
 #function
 function zman(){
