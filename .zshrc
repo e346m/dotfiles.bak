@@ -116,3 +116,6 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 
 #node grobal path
 export NODE_PATH=$(npm root -g)
+
+#IEx shell_history
+export ERL_AFLAGS="-kernel shell_history enabled"
