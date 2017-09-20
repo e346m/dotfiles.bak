@@ -33,24 +33,32 @@ autocmd FileType ruby :set foldnestmax=2
 "----copy
 set clipboard+=unnamedplus
 
-nnoremap j gj
-nnoremap k gk
 nnoremap <Space>. :<Esc>:edit $MYVIMRC<Enter>
 nnoremap <Space>s :<Esc>:source $MYVIMRC<Enter>
+
+"---- move
+nnoremap j gj
+nnoremap k gk
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
 nnoremap <C-n> gt
 nnoremap <C-p> gT
-inoremap <silent> jj <ESC>
-inoremap <silent> <C-o> <ESC>o
-inoremap <silent> <C-a> <ESC>A
-inoremap <C>dw dw
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+
+"---- execute
+nnoremap ,n :!node %<Cr>
+nnoremap ,r :!ruby %<Cr>
+nnoremap ,e :!elixir %<Cr>
+
+"---- coding
+inoremap <silent> jj <ESC>
+inoremap <silent> <C-o> <ESC>o
+inoremap <silent> <C-a> <ESC>A
 inoremap () ()<Left>
 inoremap {} {}<Left>
 inoremap [] []<Left>
@@ -61,8 +69,9 @@ inoremap `' `'<Left>
 inoremap %% %%<Left>
 inoremap \|\| \|\|<Left>
 inoremap , ,<Space>
-nnoremap gww ZZ
-nnoremap gqq ZQ
+inoremap <C>dw dw
+
+"---- split window
 nnoremap <C-g> :<C-U>vsplit<Cr>
 
 let g:indent_guides_start_level=2

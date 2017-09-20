@@ -119,3 +119,8 @@ export NODE_PATH=$(npm root -g)
 
 #IEx shell_history
 export ERL_AFLAGS="-kernel shell_history enabled"
+export ELIXIR_EDITOR="vim +__LINE__ __FILE__"
+
+#asdf
+source /usr/local/opt/asdf/asdf.sh
+export PATH="/usr/local/sbin:$PATH"
