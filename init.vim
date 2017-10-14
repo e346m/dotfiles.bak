@@ -39,21 +39,22 @@ nnoremap <Space>s :<Esc>:source $MYVIMRC<Enter>
 "---- move
 nnoremap j gj
 nnoremap k gk
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-nnoremap <C-k> <C-w>k
-nnoremap <C-j> <C-w>j
-nnoremap <C-n> gt
-nnoremap <C-p> gT
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-k> <C-w>k
+nnoremap <C-j> <C-w>j
 
 "---- execute
 nnoremap ,n :!node %<Cr>
 nnoremap ,r :!ruby %<Cr>
 nnoremap ,e :!elixir %<Cr>
+nnoremap ,iex :terminal iex %<Cr>
+nnoremap ,mix :terminal iex -S mix<Cr>
+nnoremap ,pry :terminal pry %<Cr>
 
 "---- coding
 inoremap <silent> jj <ESC>

@@ -23,7 +23,7 @@ zstyle ':zle:*' word-style unspecified
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 #プロンプトの表示
-PROMPT="%f%b%F{green}%n%f%B@%b%F{166}%d%f%B%b%F{033}%@%f::%F{magenta}> %f"
+PROMPT="%f%b%F{green}%n%f%B$(echo '\u264E') %b%F{166}%(5~,%-2~/.../%2~,%~)%f %B%b%F{033}%@%f %F{magenta}>>  %f"
 
 #コマンド履歴の保存
 HISTFILE=~/.zsh_history
@@ -88,8 +88,8 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
 eval "$(rbenv init -)"
 
 #環境変数読み込み
-if [ -f ~/.*.env ]; then
-  source ~/.*.env
+if [ -f ~/.webapi.env ]; then
+  source ~/.webapi.env
 fi
 if [ -f ~/.*/env ]; then
   source ~/.*/env
@@ -124,3 +124,6 @@ export ELIXIR_EDITOR="vim +__LINE__ __FILE__"
 #asdf
 source /usr/local/opt/asdf/asdf.sh
 export PATH="/usr/local/sbin:$PATH"
+
+#posgre
+export PGDATA=/usr/local/var/postgres

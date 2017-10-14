@@ -8,8 +8,12 @@ repo = 'Shougo/vimfiler.vim'
 [[plugins]]
 repo = 'Shougo/unite.vim'
 
+
 [[plugins]]
 repo = 'flazz/vim-colorschemes'
+
+[[plugins]]
+repo = 'davidklsn/vim-sialoquent'
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
