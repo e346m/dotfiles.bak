@@ -12,6 +12,7 @@ set smartindent "オートインデント
 " tab関連
 set expandtab "タブの代わりに空白文字挿入(soft tab化)
 set sw=2 sts=2 ts=2
+autocmd FileType go set sw=4 sts=4 ts=4
 
 " ファイルを開いた際に、前回終了時の行で起動
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
@@ -48,10 +49,15 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
 
+"---- move tab
+nnoremap <C-p> gt
+nnoremap <C-n> gT
+
 "---- execute
 nnoremap ,n :!node %<Cr>
 nnoremap ,r :!ruby %<Cr>
 nnoremap ,e :!elixir %<Cr>
+nnoremap ,g :!go run %<Cr>
 nnoremap ,iex :terminal iex %<Cr>
 nnoremap ,mix :terminal iex -S mix<Cr>
 nnoremap ,pry :terminal pry %<Cr>
@@ -119,8 +125,12 @@ let g:vimfiler_as_default_explorer=1
 nnoremap <C-e> :<C-U>VimFiler<CR>
 nnoremap <C-t> :<C-U>VimFilerTab<CR>
 
-"colorschem
-colorscheme Benokai
+"colorscheme
+let g:arcadia_Midnight = 1
+colorscheme arcadia
+"set termguicolors
+"set background=dark
+"colorscheme boa
 syntax on "カラー表示
 
 "Neomake
