@@ -23,7 +23,7 @@ zstyle ':zle:*' word-style unspecified
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 #プロンプトの表示
-PROMPT="%f%b%F{green}%n%f%B$(echo '\u264E') %b%F{166}%(5~,%-2~/.../%2~,%~)%f %B%b%F{033}%@%f %F{magenta}>>  %f"
+PROMPT="%f%b%F{green}%n%f %b%F{166}%(5~,%-2~/.../%2~,%~)%f%B%b%F{033}%@%f %F{magenta}>> %f"
 
 #コマンド履歴の保存
 HISTFILE=~/.zsh_history
@@ -127,3 +127,6 @@ export PATH="/usr/local/sbin:$PATH"
 
 #posgre
 export PGDATA=/usr/local/var/postgres
+
+#go
+export GOPATH=$HOME/.go
