@@ -29,9 +29,6 @@ let g:quickrun_config = {
 '''
 
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
 repo = 'lervag/vimtex'
 
 [[plugins]]
@@ -40,9 +37,9 @@ repo = 'neomake/neomake'
 [[plugins]]
 repo = 'epilande/neomake-local-eslint.vim'
 
+
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-hook_add = 'let g:deoplete#enable_at_startup = 1'
+repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
 repo = 'Shougo/neosnippet'

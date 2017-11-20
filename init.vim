@@ -22,6 +22,7 @@ set smartcase "検索文字列に大文字が含まれている場合は区別�
 set wrapscan "検索時に最後まで行ったら最初に戻る
 set incsearch "検索文字列入力時に順次対象文字列にヒットさる
 set hlsearch "Highlight search result
+set spelllang=en,cjk
 map <CR> :nohl<CR>
 
 autocmd BufWritePre * :%s/\s\+$//ge "行末のスペース削除
@@ -72,9 +73,7 @@ inoremap [] []<Left>
 inoremap <> <><Left>
 inoremap "" ""<Left>
 inoremap '' ''<Left>
-inoremap `' `'<Left>
-inoremap %% %%<Left>
-inoremap \|\| \|\|<Left>
+inoremap `` ``<Left>
 inoremap , ,<Space>
 inoremap <C>dw dw
 
@@ -112,7 +111,10 @@ if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
   let g:rc_dir    = expand('~/.vim/rc')
   let s:toml      = g:rc_dir . '/dein.toml'
+  let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
   call dein#load_toml(s:toml, {'lazy': 0})
+  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+
   call dein#end()
   call dein#save_state()
 endif
@@ -124,7 +126,6 @@ endif
 let g:vimfiler_as_default_explorer=1
 nnoremap <C-e> :<C-U>VimFiler<CR>
 nnoremap <C-t> :<C-U>VimFilerTab<CR>
-
 "colorscheme
 let g:arcadia_Midnight = 1
 colorscheme arcadia
