@@ -1,17 +1,20 @@
 #option
-
 setopt auto_cd
 setopt auto_pushd
 
 #補完
 #for-zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
-
-#補完機能を有効にする
-autoload -Uz compinit
-compinit -u
 #補完 メニューの選択モード
 zstyle ':completion:*:default' menu select=2
+
+#補完機能を有効にする
+#autoload -Uz compinit
+#if [[ -n ${ZDOTDIR:-${HOME}}/.zcompdump(#qN.mh+24) ]]; then
+#	compinit -d ~/.zcompdump
+#else
+#  compinit -Cu;
+#fi;
 
 #文字の区切り設定
 autoload -Uz select-word-style
@@ -74,6 +77,7 @@ alias gsp='git stash pop'
 alias tm='/usr/local/bin/tmuxx'
 alias diff='diff -u'
 alias vim='nvim'
+
 # prevent .configure script from orverriding *-config
 # remove pyenv path when using Homebrew
 alias brew="env PATH=${PATH/\/usr\/local\/var\/pyenv\/shims:/} brew"
@@ -83,9 +87,6 @@ function zman(){
     PAGER="less -g -s '+/^{7}"$1"'" man zshall
 }
 export PATH="/usr/local/sbin:$PATH"
-export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-eval "$(rbenv init -)"
 
 #環境変数読み込み
 if [ -f ~/.webapi.env ]; then
@@ -98,26 +99,29 @@ fi
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
+#コマンドラインsyntax
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 #zplug管理
 if ! zplug check; then
     zplug install
 fi
-
-#コマンドラインsyntax
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-
 # プラグインを読み込み、コマンドにパスを通す
 zplug load
 
+#ruby
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init --no-rehash -)"
+
 #python
 export PYENV_ROOT="/usr/local/var/pyenv"
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+if which pyenv > /dev/null; then eval "$(pyenv init --no-rehash -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init --no-rehash -)"; fi
 
 #node grobal path
 export NODE_PATH=$(npm root -g)
+#export PATH=$HOME/.nodebrew/current/bin:$PATH
 
-#IEx shell_history
+#iEx shell_history
 export ERL_AFLAGS="-kernel shell_history enabled"
 export ELIXIR_EDITOR="vim +__LINE__ __FILE__"
 
@@ -130,3 +134,7 @@ export PGDATA=/usr/local/var/postgres
 
 #go
 export GOPATH=$HOME/.go
+
+#if type zprof > /dev/null 2>&1; then
+#  zprof | less
+#fi
