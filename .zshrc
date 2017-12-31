@@ -77,6 +77,7 @@ alias gsp='git stash pop'
 alias tm='/usr/local/bin/tmuxx'
 alias diff='diff -u'
 alias vim='nvim'
+alias gpush='git push origin `git symbolic-ref --short HEAD` -f'
 
 # prevent .configure script from orverriding *-config
 # remove pyenv path when using Homebrew

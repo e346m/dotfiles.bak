@@ -27,7 +27,6 @@ let g:quickrun_config = {
 \   },
 \}
 '''
-
 [[plugins]]
 repo = 'lervag/vimtex'
 
