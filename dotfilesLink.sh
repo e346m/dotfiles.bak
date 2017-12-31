@@ -7,7 +7,7 @@ fi
 if [ -f ~/.vim/rc/ ]; then
   mkdir -p ~/.vim/rc/
   ln -s ~/dotfiles/dein.toml ~/.vim/rc/dein.toml
-  ln -s ~/dotfiles/lazy_dein.toml ~/.vim/rc/lazy_dein.toml
+  ln -s ~/dotfiles/dein_lazy.toml ~/.vim/rc/dein_lazy.toml
 fi
 ln -s ~/dotfiles/.zshrc ~/.zshrc
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig
