@@ -136,6 +136,10 @@ export PGDATA=/usr/local/var/postgres
 #go
 export GOPATH=$HOME/.go
 
+#Java
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+export PATH=${JAVA_HOME}/bin:$PATH
 #if type zprof > /dev/null 2>&1; then
 #  zprof | less
 #fi
+#

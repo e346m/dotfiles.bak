@@ -36,7 +36,6 @@ repo = 'neomake/neomake'
 [[plugins]]
 repo = 'epilande/neomake-local-eslint.vim'
 
-
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
