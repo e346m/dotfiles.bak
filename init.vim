@@ -12,6 +12,7 @@ set smartindent "オートインデント
 " tab関連
 set expandtab "タブの代わりに空白文字挿入(soft tab化)
 set sw=2 sts=2 ts=2
+set rtp+=/usr/local/opt/fzf
 autocmd FileType go set sw=4 sts=4 ts=4
 
 " ファイルを開いた際に、前回終了時の行で起動
@@ -77,8 +78,19 @@ inoremap `` ``<Left>
 inoremap , ,<Space>
 inoremap <C>dw dw
 
+"---- vimfiler settings
+let g:vimfiler_as_default_explorer=1
+nnoremap <C-e> :<C-U>VimFiler<CR>
+
 "---- split window
 nnoremap <C-g> :<C-U>vsplit<Cr>
+nnoremap <C-t> :<C-U>FzfNewWindow<Cr>
+
+"---- fzf serach
+nnoremap <Leader>r :Rg<Cr>
+nnoremap <Leader>f :Files<Cr>
+nnoremap <Leader>b :Buffers<Cr>
+":map <Leader>A  oanother line <Esc>
 
 let g:indent_guides_start_level=2
 let g:indent_guides_auto_colors=0
@@ -122,10 +134,22 @@ if dein#check_install()
   call dein#install()
 endif
 
-"vimfiler settings
-let g:vimfiler_as_default_explorer=1
-nnoremap <C-e> :<C-U>VimFiler<CR>
-nnoremap <C-t> :<C-U>VimFilerTab<CR>
+function! s:deinClean()
+  if len(dein#check_clean())
+    call map(dein#check_clean(), 'delete(v:val, "rf")')
+  else
+    echo '[ERR] no disabled plugins'
+  endif
+endfunction
+command! DeinClean :call s:deinClean()
+
+"--- fzf
+function! s:fzfNewWindow()
+  tabnew
+  :Files
+endfunction
+command! FzfNewWindow :call s:fzfNewWindow()
+
 "colorscheme
 let g:arcadia_Midnight = 1
 colorscheme arcadia
@@ -137,6 +161,8 @@ syntax on "カラー表示
 "Neomake
 autocmd! BufWritePost,BufEnter * Neomake
 let g:neomake_markdown_enabled_makers = []
+let g:neomake_rust_cargo_command = ['test', '--no-run']
+
 " Configure a nice credo setup, courtesy https://github.com/neomake/neomake/pull/300
 function! NeomakeCredoErrorType(entry)
     if a:entry.type ==# 'F'      " Refactoring opportunities

@@ -78,7 +78,8 @@ alias tm='/usr/local/bin/tmuxx'
 alias diff='diff -u'
 alias vim='nvim'
 alias gpush='git push origin `git symbolic-ref --short HEAD` -f'
-
+alias gdel=`git branch -a --merged | grep -v master | grep remotes/origin| sed -e 's% *remotes/origin/%%' | xargs -I% git push origin :%`
+alias gldel=`git checkout master && git branch --merged | grep -v '*' | xargs -I % git branch -d %`
 # prevent .configure script from orverriding *-config
 # remove pyenv path when using Homebrew
 alias brew="env PATH=${PATH/\/usr\/local\/var\/pyenv\/shims:/} brew"
@@ -130,6 +131,9 @@ export ELIXIR_EDITOR="vim +__LINE__ __FILE__"
 source /usr/local/opt/asdf/asdf.sh
 export PATH="/usr/local/sbin:$PATH"
 
+#tsung
+export PATH="$PATH:/usr/local/opt/asdf/lib/tsung/bin/"
+
 #posgre
 export PGDATA=/usr/local/var/postgres
 
@@ -143,3 +147,7 @@ export PATH=${JAVA_HOME}/bin:$PATH
 #  zprof | less
 #fi
 #
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

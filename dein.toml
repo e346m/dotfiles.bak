@@ -3,9 +3,6 @@ repo = 'Shougo/denite.nvim'
 if = 'has("python3")'
 
 [[plugins]]
-repo = 'Shougo/vimfiler.vim'
-
-[[plugins]]
 repo = 'Shougo/unite.vim'
 
 [[plugins]]
@@ -54,11 +51,7 @@ on_ft = ['snippet']
 depends = ['neosnippet-snippets']
 
 [[plugins]]
-repo = 'rust-lang/rust.vim'
-hook_add = 'let g:rustfmt_autosave = 1'
-
-[[plugins]]
-repo = 'racer-rust/vim-racer'
+repo = 'Shougo/vimfiler.vim'
 
 [[plugins]]
 repo = 'mhartington/nvim-typescript'
@@ -85,3 +78,14 @@ repo = 'Shougo/vinarise.vim'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+hook_add = '''
+    let g:fzf_buffers_jump = 1
+    command! -bang -nargs=* Rg
+      \ call fzf#vim#grep(
+      \   'rg --line-number --no-heading '.shellescape(<q-args>), 0,
+      \   fzf#vim#with_preview({'options': '--reverse --delimiter : --nth 3..'}, 'down:40%:wrap'))
+'''
