@@ -1,7 +1,8 @@
 #option
+export LANG=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
 setopt auto_cd
 setopt auto_pushd
-
 #補完
 #for-zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
@@ -78,8 +79,8 @@ alias tm='/usr/local/bin/tmuxx'
 alias diff='diff -u'
 alias vim='nvim'
 alias gpush='git push origin `git symbolic-ref --short HEAD` -f'
-alias gdel=`git branch -a --merged | grep -v master | grep remotes/origin| sed -e 's% *remotes/origin/%%' | xargs -I% git push origin :%`
-alias gldel=`git checkout master && git branch --merged | grep -v '*' | xargs -I % git branch -d %`
+#alias gdel=`git branch -a --merged | grep -v master | grep remotes/origin| sed -e 's% *remotes/origin/%%' | xargs -I% git push origin :%`
+#alias gldel=`git checkout master && git branch --merged | grep -v '*' | xargs -I % git branch -d %`
 # prevent .configure script from orverriding *-config
 # remove pyenv path when using Homebrew
 alias brew="env PATH=${PATH/\/usr\/local\/var\/pyenv\/shims:/} brew"
@@ -151,3 +152,8 @@ export PATH=${JAVA_HOME}/bin:$PATH
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# for old libraries like ftp telnet
+PATH="/usr/local/opt/inetutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/e2fsprogs/bin:$PATH"
+export PATH="/usr/local/opt/e2fsprogs/sbin:$PATH"
