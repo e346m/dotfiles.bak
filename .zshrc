@@ -81,6 +81,7 @@ alias vim='nvim'
 alias gpush='git push origin `git symbolic-ref --short HEAD` -f'
 #alias gdel=`git branch -a --merged | grep -v master | grep remotes/origin| sed -e 's% *remotes/origin/%%' | xargs -I% git push origin :%`
 #alias gldel=`git checkout master && git branch --merged | grep -v '*' | xargs -I % git branch -d %`
+
 # prevent .configure script from orverriding *-config
 # remove pyenv path when using Homebrew
 alias brew="env PATH=${PATH/\/usr\/local\/var\/pyenv\/shims:/} brew"
@@ -157,3 +158,13 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 PATH="/usr/local/opt/inetutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/e2fsprogs/bin:$PATH"
 export PATH="/usr/local/opt/e2fsprogs/sbin:$PATH"
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+
+# Google Cloud
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+
+# For docker
+export DOCKER_BUILDKIT=1
+alias dcu='docker-compose up'
+alias dcd='docker-compose down'
