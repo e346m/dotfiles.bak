@@ -158,6 +158,6 @@ set termguicolors
 "set background=dark
 "colorscheme boa
 syntax on "カラー表示
-" hi! ColorColumn ctermbg=lightgrey guibg=lightgrey
+autocmd VimEnter,Colorscheme * :hi ColorColumn ctermbg=lightgrey guibg=lightgrey
 
 filetype plugin indent on
