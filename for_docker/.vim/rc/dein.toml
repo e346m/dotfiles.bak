@@ -3,9 +3,6 @@ repo = 'Shougo/denite.nvim'
 if = 'has("python3")'
 
 [[plugins]]
-repo = 'Shougo/unite.vim'
-
-[[plugins]]
 repo = 'monkoose/boa.vim'
 
 [[plugins]]
@@ -28,7 +25,8 @@ let g:quickrun_config = {
 repo = 'lervag/vimtex'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
+repo = 'neoclide/coc.nvim'
+build = './install.sh nightly'
 
 [[plugins]]
 repo = 'Shougo/defx.nvim'
@@ -87,41 +85,6 @@ hook_add = '''
   endfunction
 '''
 
-# [[plugins]]
-# repo = 'neomake/neomake'
-# hoo_add = '''
-#   autocmd! BufWritePost,BufEnter * Neomake
-#   let g:neomake_markdown_enabled_makers = []
-#   let g:neomake_rust_cargo_command = ['test', '--no-run']
-#
-#   " Configure a nice credo setup, courtesy https://github.com/neomake/neomake/pull/300
-#   function! NeomakeCredoErrorType(entry)
-#       if a:entry.type ==# 'F'      " Refactoring opportunities
-#           let type = 'W'
-#       elseif a:entry.type ==# 'D'  " Software design suggestions
-#           let type = 'I'
-#       elseif a:entry.type ==# 'W'  " Warnings
-#           let type = 'W'
-#       elseif a:entry.type ==# 'R'  " Readability suggestions
-#           let type = 'I'
-#       elseif a:entry.type ==# 'C'  " Convention violation
-#           let type = 'W'
-#       else
-#           let type = 'M'           " Everything else is a message
-#       endif
-#       let a:entry.type = type
-#   endfunction
-#   let g:neomake_elixir_enabled_makers = ['mycredo']
-#   let g:neomake_elixir_mycredo_maker = {
-#         \ 'exe': 'mix',
-#         \ 'args': ['credo', 'list', '%:p', '--format=oneline'],
-#         \ 'errorformat': '[%t] %. %f:%l:%c %m,[%t] %. %f:%l %m',
-#         \ 'postprocess': function('NeomakeCredoErrorType')
-#         \ }
-#   let g:neomake_error_sign = {'text': '>>', 'texthl': 'ErrorMsg'}
-#   let g:neomake_warning_sign = {'text': '>>',  'texthl': 'Todo'}
-# '''
-
 [[plugins]]
 repo = 'sbdchd/neoformat'
 hook_add = '''
@@ -160,9 +123,6 @@ repo = 'HerringtonDarkholme/yats.vim'
 repo = 'sheerun/vim-polyglot'
 
 [[plugins]]
-repo = 'c-brenn/phoenix.vim'
-
-[[plugins]]
 repo =  'tpope/vim-projectionist'
 
 [[plugins]]
@@ -185,22 +145,3 @@ hook_add = '''
       \   'rg --line-number --no-heading '.shellescape(<q-args>), 0,
       \   fzf#vim#with_preview({'options': '--reverse --delimiter : --nth 3..'}, 'down:40%:wrap'))
 '''
-
-[[plugins]]
-repo = 'kristijanhusak/defx-icons'
-hook_source = '''
-  let g:defx_icons_enable_syntax_highlight = 1
-  let g:defx_icons_column_length = 2
-  let g:defx_icons_directory_icon = ''
-  let g:defx_icons_mark_icon = '*'
-  let g:defx_icons_parent_icon = ''
-  let g:defx_icons_default_icon = ''
-  let g:defx_icons_directory_symlink_icon = ''
-
-  let g:defx_icons_root_opened_tree_icon = ''
-  let g:defx_icons_nested_opened_tree_icon = ''
-  let g:defx_icons_nested_closed_tree_icon = ''
-'''
-
-[[plugins]]
-repo = 'ryanoasis/vim-devicons'
