@@ -53,7 +53,7 @@ function _update_vcs_info_msg(){
     psvar[1]="$vcs_info_msg_0_"
 }
 add-zsh-hook precmd _update_vcs_info_msg
-RPROMPT="%v"
+RPROMPT="%s%v"
 
 #gitのroot repositoryに移動する
 function cdg()
@@ -96,9 +96,9 @@ export PATH="/usr/local/sbin:$PATH"
 if [ -f ~/.webapi.env ]; then
   source ~/.webapi.env
 fi
-if [ -f ~/.*/env ]; then
-  source ~/.*/env
-fi
+# if [ -f ~/.*/env ]; then
+#   source ~/.*/env
+# fi
 
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
@@ -113,8 +113,8 @@ fi
 zplug load
 
 #ruby
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init --no-rehash -)"
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init --no-rehash -)"
 
 #python
 export PYENV_ROOT="/usr/local/var/pyenv"
@@ -122,7 +122,7 @@ if which pyenv > /dev/null; then eval "$(pyenv init --no-rehash -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init --no-rehash -)"; fi
 
 #node grobal path
-export NODE_PATH=$(npm root -g)
+# export NODE_PATH=$(npm root -g)
 #export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 #iEx shell_history
@@ -130,8 +130,8 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 export ELIXIR_EDITOR="vim +__LINE__ __FILE__"
 
 #asdf
-source /usr/local/opt/asdf/asdf.sh
-export PATH="/usr/local/sbin:$PATH"
+#source /usr/local/opt/asdf/asdf.sh
+#export PATH="/usr/local/sbin:$PATH"
 
 #tsung
 export PATH="$PATH:/usr/local/opt/asdf/lib/tsung/bin/"
@@ -143,8 +143,8 @@ export PGDATA=/usr/local/var/postgres
 export GOPATH=$HOME/.go
 
 #Java
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
-export PATH=${JAVA_HOME}/bin:$PATH
+# export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+# export PATH=${JAVA_HOME}/bin:$PATH
 #if type zprof > /dev/null 2>&1; then
 #  zprof | less
 #fi

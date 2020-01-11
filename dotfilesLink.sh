@@ -9,8 +9,10 @@ if [ -f ~/.vim/rc/ ]; then
   ln -s ~/dotfiles/dein.toml ~/.vim/rc/dein.toml
   ln -s ~/dotfiles/dein_lazy.toml ~/.vim/rc/dein_lazy.toml
 fi
-ln -s ~/dotfiles/.zshrc ~/.zshrc
-ln -s ~/dotfiles/.gitconfig ~/.gitconfig
-ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
-ln -s ~/dotfiles/.latexmkrc ~/.latexmkrc
-ln -s ~/dotfiles/.iex.exs ~/.iex.exs
+if [ -f ~/.gitconfig ]; then
+ ln -s ~/dotfiles/.gitconfig ~/.gitconfig
+fi
+#ln -s ~/dotfiles/.zshrc ~/.zshrc
+#ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
+#ln -s ~/dotfiles/.latexmkrc ~/.latexmkrc
+#ln -s ~/dotfiles/.iex.exs ~/.iex.exs
