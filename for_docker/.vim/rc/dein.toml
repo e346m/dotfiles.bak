@@ -12,16 +12,6 @@ repo = 'AlessandroYorba/Arcadia'
 repo = 'airblade/vim-gitgutter'
 
 [[plugins]]
-repo = 'thinca/vim-quickrun'
-hook_add = '''
-let g:quickrun_config = {
-\   'tex': {
-\       'command': 'latexmk',
-\       'exec': ['%c -gg -pdfdvi %s', 'open -F %s:r.pdf']
-\   },
-\}
-'''
-[[plugins]]
 repo = 'lervag/vimtex'
 
 [[plugins]]
@@ -93,9 +83,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'epilande/neomake-local-eslint.vim'
-
-[[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
@@ -113,10 +100,6 @@ on_ft = ['snippet']
 depends = ['neosnippet-snippets']
 
 [[plugins]]
-repo = 'mhartington/nvim-typescript'
-hook_add = 'let g:deoplete#enable_at_startup = 1'
-
-[[plugins]]
 repo = 'HerringtonDarkholme/yats.vim'
 
 [[plugins]]
@@ -126,14 +109,15 @@ repo = 'sheerun/vim-polyglot'
 repo =  'tpope/vim-projectionist'
 
 [[plugins]]
-repo = 'ludovicchabant/vim-gutentags'
-hook_add = 'let g:gutentags_cache_dir = "~/.tags_cache"'
-
-[[plugins]]
 repo = 'Shougo/vinarise.vim'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --bin'
+merged = '0'
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
@@ -144,4 +128,13 @@ hook_add = '''
       \ call fzf#vim#grep(
       \   'rg --line-number --no-heading '.shellescape(<q-args>), 0,
       \   fzf#vim#with_preview({'options': '--reverse --delimiter : --nth 3..'}, 'down:40%:wrap'))
+'''
+
+[[plugins]]
+repo = 'mattn/vim-goimports'
+
+[[plugins]]
+repo = 'jidn/vim-dbml'
+hook_add = '''
+  let g:dbml_nofold_blocks = 1
 '''
