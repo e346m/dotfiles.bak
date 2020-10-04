@@ -13,6 +13,7 @@ set smartindent "オートインデント
 set expandtab "タブの代わりに空白文字挿入(soft tab化)
 set sw=2 sts=2 ts=2
 set rtp+=/usr/local/opt/fzf
+set cursorline
 autocmd FileType go set sw=4 sts=4 ts=4
 
 
@@ -39,6 +40,11 @@ set clipboard+=unnamedplus
 
 nnoremap <Space>. :<Esc>:edit $MYVIMRC<Enter>
 nnoremap <Space>s :<Esc>:source $MYVIMRC<Enter>
+nnoremap <Leader>s" ciw""<Esc>P
+nnoremap <Leader>s' ciw''<Esc>P
+nnoremap <Leader>s( ciw()<Esc>P
+nnoremap <Leader>s{ ciw{}<Esc>P
+nnoremap <Leader>s[ ciw[]<Esc>P
 
 "---- move
 nnoremap j gj
@@ -47,10 +53,14 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+nnoremap <Space>l $
+nnoremap <Space>h ^
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
+nnoremap <silent> K :call CocAction('doHover')<CR>
+
 
 "---- move tab
 nnoremap <C-p> gt
@@ -97,11 +107,11 @@ let g:indent_guides_start_level=3
 let g:indent_guides_auto_colors=0
 let g:indent_guides_guide_size = 1
 
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType dart :set foldnestmax=2
 autocmd BufNewFile,BufRead *.haml,*.hamlbars,*.hamlc setf haml
 autocmd BufNewFile,BufRead *.sass setf sass
@@ -112,7 +122,7 @@ autocmd BufNewFile,BufRead *.scss setf scss
 "dein.vim dark power
 let s:dein_dir = expand('~/.config/nvim')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-let g:python3_host_prog = expand('/usr/local/var/pyenv/shims/python')
+let g:python3_host_prog = expand($PYENV_ROOT . '/shims/python')
 
 "check dein
 if !isdirectory(s:dein_repo_dir)
@@ -152,13 +162,16 @@ function! s:fzfNewWindow()
 endfunction
 command! FzfNewWindow :call s:fzfNewWindow()
 
+
 "colorscheme
 let g:arcadia_Midnight = 1
 colorscheme arcadia
 set termguicolors
-"set background=dark
-"colorscheme boa
-syntax on "カラー表示
+syntax enable
+filetype plugin indent on
+
 autocmd VimEnter,Colorscheme * :hi ColorColumn ctermbg=lightgrey guibg=lightgrey
+
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
 filetype plugin indent on

@@ -26,8 +26,12 @@ zstyle ':zle:*' word-style unspecified
 #大文字と小文字を区別しない
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+function gcloud-current() {
+    cat $HOME/.config/gcloud/active_config
+}
+
 #プロンプトの表示
-PROMPT="%f%b%F{green}%n%f %b%F{166}%(5~,%-2~/.../%2~,%~)%f%B%b%F{033}%@%f %F{magenta}>> %f"
+PROMPT="%f%b%F{green}%n%f:: %b%F{166}%(5~,%-2~/.../%2~,%~)%f%B%b%F{033}%@%f %F{magenta}>> %f"
 
 #コマンド履歴の保存
 HISTFILE=~/.zsh_history
@@ -55,6 +59,16 @@ function _update_vcs_info_msg(){
 add-zsh-hook precmd _update_vcs_info_msg
 RPROMPT="%s%v"
 
+function _gcloud_change_project() {
+  local proj=$(gcloud config configurations list | fzf --header-lines=1 | awk '{print $1}')
+  if [ -n $proj ]; then
+    gcloud config configurations activate $proj
+    zf_reload
+    return $?
+  fi
+}
+alias gcp=_gcloud_change_project
+
 #gitのroot repositoryに移動する
 function cdg()
 {
@@ -63,6 +77,7 @@ function cdg()
         cd $1
     fi
 }
+
 
 #エイリアス
 alias ls='ls -Fh'
@@ -141,6 +156,8 @@ export PGDATA=/usr/local/var/postgres
 
 #go
 export GOPATH=$HOME/.go
+export GOBIN=$GOPATH/bin
+export PATH="$PATH:$GOBIN"
 
 #Java
 # export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
@@ -164,6 +181,11 @@ export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 
+function zf_reload() {
+  source $HOME/.zshrc
+}
+
+
 # For docker
 export DOCKER_BUILDKIT=1
 alias dcu='docker-compose up'
@@ -178,3 +200,18 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # For alacritty
 export WAYLAND_DISPLAY="alacritty on Wayland"
+
+#If you need to have openssl@1.1 first in your PATH run:
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+
+#For compilers to find openssl@1.1 you may need to set:
+export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+
+#For pkg-config to find openssl@1.1 you may need to set:
+export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+export PATH="/usr/local/opt/ncurses/bin:$PATH"
+
+
+#Google Cloud Debugger
+alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)" -H "Content-Type: application/json"'
