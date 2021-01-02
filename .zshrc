@@ -3,19 +3,13 @@ export LANG=ja_JP.UTF-8
 export LC_ALL=ja_JP.UTF-8
 setopt auto_cd
 setopt auto_pushd
+export PATH="/usr/local/sbin:$PATH"
+
 #補完
 #for-zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
 #補完 メニューの選択モード
 zstyle ':completion:*:default' menu select=2
-
-#補完機能を有効にする
-#autoload -Uz compinit
-#if [[ -n ${ZDOTDIR:-${HOME}}/.zcompdump(#qN.mh+24) ]]; then
-#	compinit -d ~/.zcompdump
-#else
-#  compinit -Cu;
-#fi;
 
 #文字の区切り設定
 autoload -Uz select-word-style
@@ -25,10 +19,6 @@ zstyle ':zle:*' word-style unspecified
 
 #大文字と小文字を区別しない
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-function gcloud-current() {
-    cat $HOME/.config/gcloud/active_config
-}
 
 #プロンプトの表示
 PROMPT="%f%b%F{green}%n%f:: %b%F{166}%(5~,%-2~/.../%2~,%~)%f%B%b%F{033}%@%f %F{magenta}>> %f"
@@ -59,26 +49,6 @@ function _update_vcs_info_msg(){
 add-zsh-hook precmd _update_vcs_info_msg
 RPROMPT="%v"
 
-function _gcloud_change_project() {
-  local proj=$(gcloud config configurations list | fzf --header-lines=1 | awk '{print $1}')
-  if [ -n $proj ]; then
-    gcloud config configurations activate $proj
-    zf_reload
-    return $?
-  fi
-}
-alias gcp=_gcloud_change_project
-
-#gitのroot repositoryに移動する
-function cdg()
-{
-    cd ./$(git rev-parse --show-cdup)
-    if [ $# = 1 ]; then
-        cd $1
-    fi
-}
-
-
 #エイリアス
 alias ls='ls -Fh'
 alias la='ls -ah'
@@ -88,8 +58,6 @@ alias gs='git status'
 alias gr='git rebase -i'
 alias gp='git pull'
 alias gc='git co'
-alias gst='git stash'
-alias gsp='git stash pop'
 alias tm='/usr/local/bin/tmuxx'
 alias diff='diff -u'
 alias vim='nvim'
@@ -97,26 +65,21 @@ alias gpush='git push origin `git symbolic-ref --short HEAD` -f'
 #alias gdel=`git branch -a --merged | grep -v master | grep remotes/origin| sed -e 's% *remotes/origin/%%' | xargs -I% git push origin :%`
 #alias gldel=`git checkout master && git branch --merged | grep -v '*' | xargs -I % git branch -d %`
 
-# prevent .configure script from orverriding *-config
-# remove pyenv path when using Homebrew
-alias brew="env PATH=${PATH/\/usr\/local\/var\/pyenv\/shims:/} brew"
-
-#function
-function zman(){
-    PAGER="less -g -s '+/^{7}"$1"'" man zshall
-}
-export PATH="/usr/local/sbin:$PATH"
+# zplug cross platform
+case ${OSTYPE} in
+  darwin*)
+    export ZPLUG_HOME=/usr/local/opt/zplug
+    ;;
+  linux*)
+    export ZPLUG_HOME=/home/linuxbrew/.linuxbrew/opt/zplug
+    ;;
+esac
+source $ZPLUG_HOME/init.zsh
 
 #環境変数読み込み
-if [ -f ~/.webapi.env ]; then
-  source ~/.webapi.env
-fi
 if [ -f ~/.*/env ]; then
   source ~/.*/env
 fi
-
-export ZPLUG_HOME=/usr/local/opt/zplug
-source $ZPLUG_HOME/init.zsh
 
 #コマンドラインsyntax
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
@@ -132,13 +95,13 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init --no-rehash -)"
 
 #python
+# prevent .configure script from orverriding *-config
+# remove pyenv path when using Homebrew
+alias brew="env PATH=${PATH/\/usr\/local\/var\/pyenv\/shims:/} brew"
+
 export PYENV_ROOT="/usr/local/var/pyenv"
 if which pyenv > /dev/null; then eval "$(pyenv init --no-rehash -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init --no-rehash -)"; fi
-
-#node grobal path
-export NODE_PATH=$(npm root -g)
-#export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 #iEx shell_history
 export ERL_AFLAGS="-kernel shell_history enabled"
@@ -147,9 +110,6 @@ export ELIXIR_EDITOR="vim +__LINE__ __FILE__"
 #asdf
 source /usr/local/opt/asdf/asdf.sh
 export PATH="/usr/local/sbin:$PATH"
-
-#tsung
-export PATH="$PATH:/usr/local/opt/asdf/lib/tsung/bin/"
 
 #posgre
 export PGDATA=/usr/local/var/postgres
@@ -162,10 +122,6 @@ export PATH="$PATH:$GOBIN"
 #Java
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export PATH=${JAVA_HOME}/bin:$PATH
-#if type zprof > /dev/null 2>&1; then
-#  zprof | less
-#fi
-#
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
@@ -180,16 +136,24 @@ export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 # Google Cloud
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)" -H "Content-Type: application/json"'
 
-function zf_reload() {
-  source $HOME/.zshrc
+function gcloud-current() {
+    cat $HOME/.config/gcloud/active_config
 }
 
+function _gcloud_change_project() {
+  local proj=$(gcloud config configurations list | fzf --header-lines=1 | awk '{print $1}')
+  if [ -n $proj ]; then
+    gcloud config configurations activate $proj
+    zf_reload
+    return $?
+  fi
+}
+alias gcp=_gcloud_change_project
 
 # For docker
 export DOCKER_BUILDKIT=1
-alias dcu='docker-compose up'
-alias dcd='docker-compose down'
 
 #android
 export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -199,7 +163,13 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # For alacritty
-export WAYLAND_DISPLAY="alacritty on Wayland"
+case ${OSTYPE} in
+  darwin*)
+    export WAYLAND_DISPLAY="alacritty on Wayland"
+    ;;
+  linux*)
+    ;;
+esac
 
 #If you need to have openssl@1.1 first in your PATH run:
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
@@ -212,6 +182,24 @@ export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
 export PATH="/usr/local/opt/ncurses/bin:$PATH"
 
+# functions
+function mkcd() {
+  mkdir -p $1 && cd $1
+}
 
-#Google Cloud Debugger
-alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)" -H "Content-Type: application/json"'
+function zf_reload() {
+  source $HOME/.zshrc
+}
+
+function zman(){
+    PAGER="less -g -s '+/^{7}"$1"'" man zshall
+}
+
+# change to project root directory
+function cdg()
+{
+    cd ./$(git rev-parse --show-cdup)
+    if [ $# = 1 ]; then
+        cd $1
+    fi
+}

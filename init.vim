@@ -2,24 +2,21 @@ set number  "行番号表示
 set showmode "モード表示
 set title "編集中のファイル名を表示
 set ruler "ルーラーの表示
+set smartindent "オートインデント
 set showcmd "入力中のコマンドをステータスに表示する
 set showmatch "括弧入力時の対応する括弧を表示
 set laststatus=2 "ステータスラインを常に表示
-set backspace=indent,eol,start
+set cursorline
 set colorcolumn=100
 set wrap
-set smartindent "オートインデント
-" tab関連
+set backspace=indent,eol,start
+
+" tab
 set expandtab "タブの代わりに空白文字挿入(soft tab化)
 set sw=2 sts=2 ts=2
-set rtp+=/usr/local/opt/fzf
-set cursorline
 autocmd FileType go set sw=4 sts=4 ts=4
 
-
-" ファイルを開いた際に、前回終了時の行で起動
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-
+" search
 set ignorecase "検索文字列が小文字の場合は大文字小文字を区別なく検索する
 set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
 set wrapscan "検索時に最後まで行ったら最初に戻る
@@ -28,8 +25,19 @@ set hlsearch "Highlight search result
 set spelllang=en,cjk
 map <CR> :nohl<CR>
 
+"---- fzf file serach
+nnoremap <Leader>r :Rg<Cr>
+nnoremap <Leader>f :Files<Cr>
+nnoremap <Leader>b :Buffers<Cr>
+
+" ファイルを開いた際に、前回終了時の行で起動
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+
+set rtp+=/usr/local/opt/fzf
+
 autocmd BufWritePre * :%s/\s\+$//ge "行末のスペース削除
 
+" fold
 set foldmethod=manual
 autocmd FileType ruby :set foldmethod=indent
 autocmd FileType ruby :set foldlevel=1
@@ -61,19 +69,9 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
 nnoremap <silent> K :call CocAction('doHover')<CR>
 
-
 "---- move tab
 nnoremap <C-p> gt
 nnoremap <C-n> gT
-
-"---- execute
-nnoremap ,n :!node %<Cr>
-nnoremap ,r :!ruby %<Cr>
-nnoremap ,e :!elixir %<Cr>
-nnoremap ,g :!go run %<Cr>
-nnoremap ,iex :terminal iex %<Cr>
-nnoremap ,mix :terminal iex -S mix<Cr>
-nnoremap ,pry :terminal pry %<Cr>
 
 "---- coding
 inoremap <silent> jj <ESC>
@@ -97,28 +95,11 @@ nnoremap <C-e> :<C-U>Defx<CR>
 nnoremap <C-g> :<C-U>vsplit<Cr>
 nnoremap <C-t> :<C-U>FzfNewWindow<Cr>
 
-"---- fzf serach
-nnoremap <Leader>r :Rg<Cr>
-nnoremap <Leader>f :Files<Cr>
-nnoremap <Leader>b :Buffers<Cr>
-":map <Leader>A  oanother line <Esc>
-
 let g:indent_guides_start_level=3
 let g:indent_guides_auto_colors=0
 let g:indent_guides_guide_size = 1
 
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType dart :set foldnestmax=2
-autocmd BufNewFile,BufRead *.haml,*.hamlbars,*.hamlc setf haml
-autocmd BufNewFile,BufRead *.sass setf sass
-autocmd BufNewFile,BufRead *.scss setf scss
-
 "plugin
-
 "dein.vim dark power
 let s:dein_dir = expand('~/.config/nvim')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -162,16 +143,12 @@ function! s:fzfNewWindow()
 endfunction
 command! FzfNewWindow :call s:fzfNewWindow()
 
-
 "colorscheme
 let g:arcadia_Midnight = 1
 colorscheme arcadia
 set termguicolors
 syntax enable
-filetype plugin indent on
 
+filetype plugin indent on
 autocmd VimEnter,Colorscheme * :hi ColorColumn ctermbg=lightgrey guibg=lightgrey
-
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
-
-filetype plugin indent on

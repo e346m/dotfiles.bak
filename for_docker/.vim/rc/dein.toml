@@ -3,16 +3,10 @@ repo = 'Shougo/denite.nvim'
 if = 'has("python3")'
 
 [[plugins]]
-repo = 'monkoose/boa.vim'
-
-[[plugins]]
 repo = 'AlessandroYorba/Arcadia'
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
-
-[[plugins]]
-repo = 'lervag/vimtex'
 
 [[plugins]]
 repo = 'neoclide/coc.nvim'
@@ -76,43 +70,10 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'sbdchd/neoformat'
-hook_add = '''
-  autocmd BufWritePre *.js Neoformat
-  let g:neoformat_try_formatprg = 1
-'''
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'Shougo/neosnippet'
-hook_source = '''
-  imap <C-k> <Plug>(neosnippet_expand_or_jump)
-  smap <C-k> <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k> <Plug>(neosnippet_expand_target)
-  if has('conceal')
-    set conceallevel=2 concealcursor=niv
-  endif
-'''
-on_i  = 1
-on_ft = ['snippet']
-depends = ['neosnippet-snippets']
-
-[[plugins]]
-repo = 'HerringtonDarkholme/yats.vim'
-
-[[plugins]]
 repo = 'sheerun/vim-polyglot'
 
 [[plugins]]
-repo =  'tpope/vim-projectionist'
-
-[[plugins]]
 repo = 'Shougo/vinarise.vim'
-
-[[plugins]]
-repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'junegunn/fzf'
