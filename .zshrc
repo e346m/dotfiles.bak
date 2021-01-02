@@ -65,6 +65,8 @@ alias gpush='git push origin `git symbolic-ref --short HEAD` -f'
 #alias gdel=`git branch -a --merged | grep -v master | grep remotes/origin| sed -e 's% *remotes/origin/%%' | xargs -I% git push origin :%`
 #alias gldel=`git checkout master && git branch --merged | grep -v '*' | xargs -I % git branch -d %`
 
+if which bat > /dev/null; then alias cat='bat'; fi
+
 # zplug cross platform
 case ${OSTYPE} in
   darwin*)
