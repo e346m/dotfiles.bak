@@ -20,8 +20,14 @@ zstyle ':zle:*' word-style unspecified
 #大文字と小文字を区別しない
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+
+function gcloud-current() {
+  gcloud config get-value project 2> /dev/null
+}
+
+setopt prompt_subst
 #プロンプトの表示
-PROMPT="%f%b%F{green}%n%f:: %b%F{166}%(5~,%-2~/.../%2~,%~)%f%B%b%F{033}%@%f %F{magenta}>> %f"
+PROMPT="$(gcloud-current):%b%F{166}%(5~,%-2~/.../%2~,%~)%f%B%b%F{033}%@%f %F{magenta}> %f"
 
 #コマンド履歴の保存
 HISTFILE=~/.zsh_history
@@ -42,12 +48,11 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*:' formats '(%s)-[%b]'
 zstyle ':vcs_info:*:' actionformats '(%s)-[%b|%a]'
 function _update_vcs_info_msg(){
-    psvar=()
     LANG=en_US.UTF-8 vcs_info
-    psvar[1]="$vcs_info_msg_0_"
+    RPROMPT="$vcs_info_msg_0_"
 }
 add-zsh-hook precmd _update_vcs_info_msg
-RPROMPT="%v"
+
 
 #エイリアス
 alias ls='ls -Fh'
@@ -62,6 +67,7 @@ alias tm='/usr/local/bin/tmuxx'
 alias diff='diff -u'
 alias vim='nvim'
 alias gpush='git push origin `git symbolic-ref --short HEAD` -f'
+alias gbl='git branch --sort=-committerdate'
 #alias gdel=`git branch -a --merged | grep -v master | grep remotes/origin| sed -e 's% *remotes/origin/%%' | xargs -I% git push origin :%`
 #alias gldel=`git checkout master && git branch --merged | grep -v '*' | xargs -I % git branch -d %`
 
@@ -140,10 +146,6 @@ source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.in
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)" -H "Content-Type: application/json"'
 
-function gcloud-current() {
-    cat $HOME/.config/gcloud/active_config
-}
-
 function _gcloud_change_project() {
   local proj=$(gcloud config configurations list | fzf --header-lines=1 | awk '{print $1}')
   if [ -n $proj ]; then
@@ -156,6 +158,7 @@ alias gcp=_gcloud_change_project
 
 # For docker
 export DOCKER_BUILDKIT=1
+alias d_rmi_none='docker rmi $(docker images -f dangling=true -q)'
 
 #android
 export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -205,3 +208,5 @@ function cdg()
         cd $1
     fi
 }
+
+alias gip="curl https://ipinfo.io/ip"
