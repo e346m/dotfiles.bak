@@ -52,8 +52,8 @@ alias diff='diff -u'
 alias vim='nvim'
 alias gpush='git push origin `git symbolic-ref --short HEAD` -f'
 alias gbl='git branch --sort=-committerdate'
-alias gdel=`git branch -a --merged | grep -v master | grep remotes/origin| sed -e 's% *remotes/origin/%%' | xargs -I% git push origin :%`
-alias gldel=`git checkout master && git branch --merged | grep -v '*' | xargs -I % git branch -d %`
+alias gdel='git branch -a --merged | grep -v master | grep remotes/origin| sed -e "s% *remotes/origin/%%" | xargs -I% git push origin :%'
+alias gldel='git checkout master && git branch --merged | grep -v "*" | xargs -I % git branch -d %'
 
 function gitpr() {
     if [ "$1" != "" ]
