@@ -1,3 +1,7 @@
+#local
+local orange=%F{166}
+local blue=%F{033}
+local magenta=%F{magenta}
 #option
 export LANG=ja_JP.UTF-8
 export LC_ALL=ja_JP.UTF-8
@@ -5,14 +9,14 @@ setopt auto_cd
 setopt auto_pushd
 export PATH="/usr/local/sbin:$PATH"
 
-#右プロンプトの表示
+#プロンプトの表示
 setopt prompt_subst
 function gcloud-current() {
   if [[ -d $HOME/.config/gcloud/ ]]; then
     cat $HOME/.config/gcloud/active_config
   fi
 }
-PROMPT="$(gcloud-current):%b%F{166}%(5~,%-2~/.../%2~,%~)%f%B%b%F{033}%@%f %F{magenta}> %f"
+PROMPT="$(gcloud-current):%b$orange%(5~,%-2~/.../%2~,%~)%f%B%b$blue%@%f $magenta> %f"
 
 #コマンド履歴の保存
 HISTFILE=~/.zsh_history
