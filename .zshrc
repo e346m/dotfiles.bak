@@ -5,14 +5,14 @@ setopt auto_cd
 setopt auto_pushd
 export PATH="/usr/local/sbin:$PATH"
 
-function gcloud-current() {
-  gcloud config get-value project 2> /dev/null
-}
-
+#右プロンプトの表示
 setopt prompt_subst
-#プロンプトの表示
-#TODO gcloud-currentを遅延して呼び出したい
-PROMPT="%b%F{166}%(5~,%-2~/.../%2~,%~)%f%B%b%F{033}%@%f %F{magenta}> %f"
+function gcloud-current() {
+  if [[ -d $HOME/.config/gcloud/ ]]; then
+    cat $HOME/.config/gcloud/active_config
+  fi
+}
+PROMPT="$(gcloud-current):%b%F{166}%(5~,%-2~/.../%2~,%~)%f%B%b%F{033}%@%f %F{magenta}> %f"
 
 #コマンド履歴の保存
 HISTFILE=~/.zsh_history
