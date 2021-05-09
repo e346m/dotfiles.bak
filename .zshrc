@@ -5,29 +5,14 @@ setopt auto_cd
 setopt auto_pushd
 export PATH="/usr/local/sbin:$PATH"
 
-#補完
-#for-zsh-completions
-fpath=(/usr/local/share/zsh-completions $fpath)
-#補完 メニューの選択モード
-zstyle ':completion:*:default' menu select=2
-
-#文字の区切り設定
-autoload -Uz select-word-style
-select-word-style default
-zstyle ':zle:*' word-chars "/=;@;{}.|"
-zstyle ':zle:*' word-style unspecified
-
-#大文字と小文字を区別しない
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-
 function gcloud-current() {
   gcloud config get-value project 2> /dev/null
 }
 
 setopt prompt_subst
 #プロンプトの表示
-PROMPT="$(gcloud-current):%b%F{166}%(5~,%-2~/.../%2~,%~)%f%B%b%F{033}%@%f %F{magenta}> %f"
+#TODO gcloud-currentを遅延して呼び出したい
+PROMPT="%b%F{166}%(5~,%-2~/.../%2~,%~)%f%B%b%F{033}%@%f %F{magenta}> %f"
 
 #コマンド履歴の保存
 HISTFILE=~/.zsh_history
@@ -53,7 +38,6 @@ function _update_vcs_info_msg(){
 }
 add-zsh-hook precmd _update_vcs_info_msg
 
-
 #エイリアス
 alias ls='ls -Fh'
 alias la='ls -ah'
@@ -63,14 +47,13 @@ alias gs='git status'
 alias gr='git rebase -i'
 alias gp='git pull'
 alias gc='git co'
-alias tm='/usr/local/bin/tmuxx'
+alias gip="curl https://ipinfo.io/ip"
 alias diff='diff -u'
 alias vim='nvim'
 alias gpush='git push origin `git symbolic-ref --short HEAD` -f'
 alias gbl='git branch --sort=-committerdate'
-alias gr='git branch --sort=-committerdate'
-#alias gdel=`git branch -a --merged | grep -v master | grep remotes/origin| sed -e 's% *remotes/origin/%%' | xargs -I% git push origin :%`
-#alias gldel=`git checkout master && git branch --merged | grep -v '*' | xargs -I % git branch -d %`
+alias gdel=`git branch -a --merged | grep -v master | grep remotes/origin| sed -e 's% *remotes/origin/%%' | xargs -I% git push origin :%`
+alias gldel=`git checkout master && git branch --merged | grep -v '*' | xargs -I % git branch -d %`
 
 function gitpr() {
     if [ "$1" != "" ]
@@ -81,32 +64,8 @@ function gitpr() {
     fi
 }
 
+#overriding alias
 if which bat > /dev/null; then alias cat='bat'; fi
-
-# zplug cross platform
-case ${OSTYPE} in
-  darwin*)
-    export ZPLUG_HOME=/usr/local/opt/zplug
-    ;;
-  linux*)
-    export ZPLUG_HOME=/home/linuxbrew/.linuxbrew/opt/zplug
-    ;;
-esac
-source $ZPLUG_HOME/init.zsh
-
-#環境変数読み込み
-if [ -f ~/.*/env ]; then
-  source ~/.*/env
-fi
-
-#コマンドラインsyntax
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-#zplug管理
-if ! zplug check; then
-    zplug install
-fi
-# プラグインを読み込み、コマンドにパスを通す
-zplug load
 
 #ruby
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -129,9 +88,6 @@ export ELIXIR_EDITOR="vim +__LINE__ __FILE__"
 source /usr/local/opt/asdf/asdf.sh
 export PATH="/usr/local/sbin:$PATH"
 
-#posgre
-export PGDATA=/usr/local/var/postgres
-
 #go
 export GOPATH=$HOME/.go
 export GOBIN=$GOPATH/bin
@@ -140,31 +96,6 @@ export PATH="$PATH:$GOBIN"
 #Java
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export PATH=${JAVA_HOME}/bin:$PATH
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-# for old libraries like ftp telnet
-PATH="/usr/local/opt/inetutils/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/e2fsprogs/bin:$PATH"
-export PATH="/usr/local/opt/e2fsprogs/sbin:$PATH"
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-
-# Google Cloud
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
-alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)" -H "Content-Type: application/json"'
-
-function _gcloud_change_project() {
-  local proj=$(gcloud config configurations list | fzf --header-lines=1 | awk '{print $1}')
-  if [ -n $proj ]; then
-    gcloud config configurations activate $proj
-    zf_reload
-    return $?
-  fi
-}
-alias gcp=_gcloud_change_project
 
 # For docker
 export DOCKER_BUILDKIT=1
@@ -177,33 +108,48 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-# For alacritty
+# For Cross Platform
 case ${OSTYPE} in
   darwin*)
+    #Alacritty
     export WAYLAND_DISPLAY="alacritty on Wayland"
+
+    #If you need to have openssl@1.1 first in your PATH run:
+    export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+
+    #For compilers to find openssl@1.1 you may need to set:
+    export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+    export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+
+    #For pkg-config to find openssl@1.1 you may need to set:
+    export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+    export PATH="/usr/local/opt/ncurses/bin:$PATH"
+
+    # Google Cloud
+    source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+    source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+    alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)" -H "Content-Type: application/json"'
+
+    function _zf_reload() {
+      source $HOME/.zshrc
+    }
+    function _gcloud_change_project() {
+      local proj=$(gcloud config configurations list | fzf --header-lines=1 | awk '{print $1}')
+      if [ -n $proj ]; then
+        gcloud config configurations activate $proj
+        _zf_reload
+        return $?
+      fi
+    }
+    alias gcp=_gcloud_change_project
     ;;
   linux*)
     ;;
 esac
 
-#If you need to have openssl@1.1 first in your PATH run:
-export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-
-#For compilers to find openssl@1.1 you may need to set:
-export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
-
-#For pkg-config to find openssl@1.1 you may need to set:
-export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
-export PATH="/usr/local/opt/ncurses/bin:$PATH"
-
 # functions
 function mkcd() {
   mkdir -p $1 && cd $1
-}
-
-function zf_reload() {
-  source $HOME/.zshrc
 }
 
 function zman(){
@@ -219,4 +165,34 @@ function cdg()
     fi
 }
 
-alias gip="curl https://ipinfo.io/ip"
+#plugins
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma/fast-syntax-highlighting
+
+zinit ice from"gh-r" as"program"
+zinit load junegunn/fzf-bin
+
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-rust \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-bin-gem-node
+# End of Zinit's installer chunk#
