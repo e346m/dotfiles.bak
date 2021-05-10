@@ -15,6 +15,17 @@ if [[ ! -d ~/.config/alacritty ]]; then
   ln -s ~/dotfiles/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
 fi
 
+if [[ ! -d ~/.config/vale ]]; then
+  mkdir -p ~/.config/vale
+  cd ~/dotfiles/vale/styles
+  curl  -sL -o - https://github.com/errata-ai/Microsoft/releases/download/v0.8.1/Microsoft.zip | jar -xvf /dev/stdin
+
+  ln -s ~/dotfiles/vale/vale.ini ~/.vale.ini
+  # vim ale plugin cannort accept --config flag
+  # ln -s ~/dotfiles/vale/vale.ini ~/.config/vale/vale.ini
+  ln -s ~/dotfiles/vale/styles ~/.config/vale/styles
+fi
+
 ln -s ~/dotfiles/.zshrc ~/.zshrc
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf

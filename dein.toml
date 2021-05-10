@@ -99,3 +99,14 @@ repo = 'jidn/vim-dbml'
 hook_add = '''
   let g:dbml_nofold_blocks = 1
 '''
+
+[[plugins]]
+repo = 'dense-analysis/ale'
+hook_add = '''
+  let g:ale_linters = {
+    \'markdown': ['vale'],
+    \'reStructuredText': ['vale'],
+    \'AsciiDoc': ['vale'],
+  \ }
+  let g:ale_lint_on_save = 1
+'''
