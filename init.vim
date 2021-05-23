@@ -104,6 +104,10 @@ let g:indent_guides_guide_size = 1
 let s:dein_dir = expand('~/.config/nvim')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 let g:python3_host_prog = expand($PYENV_ROOT . '/shims/python')
+"
+if !empty(g:python3_host_prog)
+  let g:python3_host_prog = expand('/usr/bin/python3')
+endif
 
 "check dein
 if !isdirectory(s:dein_repo_dir)
