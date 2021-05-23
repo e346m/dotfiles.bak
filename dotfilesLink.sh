@@ -9,7 +9,6 @@ if [[ ! -d ~/.vim/rc/ ]]; then
   ln -s ~/dotfiles/dein.toml ~/.vim/rc/dein.toml
   ln -s ~/dotfiles/dein_lazy.toml ~/.vim/rc/dein_lazy.toml
 fi
-
 if [[ ! -d ~/.config/alacritty ]]; then
   mkdir -p ~/.config/alacritty
   ln -s ~/dotfiles/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml

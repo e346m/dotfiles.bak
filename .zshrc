@@ -77,8 +77,8 @@ fi
 if which bat > /dev/null; then alias cat='bat'; fi
 
 #ruby
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init --no-rehash -)"
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init --no-rehash -)"
 
 #python
 # prevent .configure script from orverriding *-config
@@ -94,17 +94,14 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 export ELIXIR_EDITOR="vim +__LINE__ __FILE__"
 
 #asdf
-source /usr/local/opt/asdf/asdf.sh
-export PATH="/usr/local/sbin:$PATH"
+#source /usr/local/opt/asdf/asdf.sh
+#export PATH="/usr/local/sbin:$PATH"
 
 #go
 export GOPATH=$HOME/.go
 export GOBIN=$GOPATH/bin
 export PATH="$PATH:$GOBIN"
 
-#Java
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
-export PATH=${JAVA_HOME}/bin:$PATH
 
 # For docker
 export DOCKER_BUILDKIT=1
@@ -127,6 +124,10 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 # For Cross Platform
 case ${OSTYPE} in
   darwin*)
+    #Java
+    export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+    export PATH=${JAVA_HOME}/bin:$PATH
+
     #Alacritty
     export WAYLAND_DISPLAY="alacritty on Wayland"
 
