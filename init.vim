@@ -22,10 +22,11 @@ set smartcase "検索文字列に大文字が含まれている場合は区別�
 set wrapscan "検索時に最後まで行ったら最初に戻る
 set incsearch "検索文字列入力時に順次対象文字列にヒットさる
 set hlsearch "Highlight search result
-set spelllang=en,cjk
+set spell
+set spelllang=en_us,cjk
 map <CR> :nohl<CR>
 
-"---- fzf file serach
+"---- fzf file search
 nnoremap <Leader>r :Rg<Cr>
 nnoremap <Leader>f :Files<Cr>
 nnoremap <Leader>b :Buffers<Cr>
@@ -87,9 +88,8 @@ inoremap `` ``<Left>
 inoremap , ,<Space>
 inoremap <C>dw dw
 
-"---- vimfiler settings
-let g:vimfiler_as_default_explorer=1
-nnoremap <C-e> :<C-U>Defx<CR>
+"---- filer: current working directory with current buffer
+nnoremap <C-e> :<C-U>Fern . -reveal=%<CR>
 
 "---- split window
 nnoremap <C-g> :<C-U>vsplit<Cr>
@@ -117,6 +117,7 @@ if dein#load_state(s:dein_dir)
   let g:rc_dir    = expand('~/.vim/rc')
   let s:toml      = g:rc_dir . '/dein.toml'
   let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
+  let g:dein#install_github_api_token = $VIM_PLUGIN_MAGER_TOKEN
   call dein#load_toml(s:toml, {'lazy': 0})
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
 
