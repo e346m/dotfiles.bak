@@ -50,7 +50,7 @@ alias -g G='|grep'
 alias gs='git status'
 alias gr='git rebase -i'
 alias gp='git pull'
-alias gc='git co'
+alias gc='git checkout'
 alias gip="curl https://ipinfo.io/ip"
 alias diff='diff -u'
 alias vim='nvim'
@@ -67,6 +67,11 @@ function gitpr() {
         echo 'should add pull request number'
     fi
 }
+
+#load env
+if [ -f $HOME/.env ]; then
+  source $HOME/.env
+fi
 
 #overriding alias
 if which bat > /dev/null; then alias cat='bat'; fi
@@ -104,6 +109,13 @@ export PATH=${JAVA_HOME}/bin:$PATH
 # For docker
 export DOCKER_BUILDKIT=1
 alias d_rmi_none='docker rmi $(docker images -f dangling=true -q)'
+
+# POSTGRES
+if which pspg > /dev/null; then
+  export PSQL_PAGER=pspg
+else
+  export PSQL_PAGER="less -S"
+fi
 
 #android
 export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -184,13 +196,10 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 zinit light zsh-users/zsh-autosuggestions
+# ignore case-insensitive completion
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
+
 zinit light zdharma/fast-syntax-highlighting
-
-zinit ice from"gh-r" as"program"
-zinit load junegunn/fzf-bin
-
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
@@ -199,4 +208,11 @@ zinit light-mode for \
     zinit-zsh/z-a-as-monitor \
     zinit-zsh/z-a-patch-dl \
     zinit-zsh/z-a-bin-gem-node
+
+zinit ice from"gh-r" as"program"
+zinit load junegunn/fzf-bin
+
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 # End of Zinit's installer chunk#
