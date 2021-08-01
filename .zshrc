@@ -161,6 +161,20 @@ case ${OSTYPE} in
     alias gcp=_gcloud_change_project
     ;;
   linux*)
+    function _gcloud_change_project() {
+      local proj=$(gcloud config configurations list | fzf --header-lines=1 | awk '{print $1}')
+      if [ -n $proj ]; then
+        gcloud config configurations activate $proj
+        _zf_reload
+        return $?
+      fi
+    }
+    function _zf_reload() {
+      source $HOME/.zshrc
+    }
+    alias gcp=_gcloud_change_project
+
+    source '/usr/share/google-cloud-sdk/completion.zsh.inc'
     ;;
 esac
 
@@ -200,6 +214,9 @@ zinit light zsh-users/zsh-autosuggestions
 # ignore case-insensitive completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 
+#補完 メニューの選択モード
+zstyle ':completion:*:default' menu select=2
+
 zinit light zdharma/fast-syntax-highlighting
 
 # Load a few important annexes, without Turbo
@@ -217,3 +234,6 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # End of Zinit's installer chunk#
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform

@@ -37,6 +37,7 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm
 set rtp+=/usr/local/opt/fzf
 
 autocmd BufWritePre * :%s/\s\+$//ge "行末のスペース削除
+autocmd BufWritePre *.tsx,*.ts Prettier
 
 " fold
 set foldmethod=manual
@@ -87,6 +88,10 @@ inoremap '' ''<Left>
 inoremap `` ``<Left>
 inoremap , ,<Space>
 inoremap <C>dw dw
+
+"--- coc
+"--- coc-tsserver
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 "---- filer: current working directory with current buffer
 nnoremap <C-e> :<C-U>Fern . -reveal=%<CR>
@@ -156,4 +161,3 @@ syntax enable
 
 filetype plugin indent on
 autocmd VimEnter,Colorscheme * :hi ColorColumn ctermbg=lightgrey guibg=lightgrey
-command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
