@@ -1,4 +1,4 @@
-require'plugins'
+require 'plugins'
 
 local api = vim.api
 local vim = vim
