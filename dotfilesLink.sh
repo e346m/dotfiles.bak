@@ -1,14 +1,17 @@
 #! /bin/bash
+
+## init vim
 if [[ ! -d ~/.config/nvim ]]; then
   mkdir -p ~/.config/nvim
-  ln -s ~/dotfiles/init.vim ~/.config/nvim/init.vim
+  ln -s ~/dotfiles/init.lua ~/.config/nvim/init.lua
 fi
 
-if [[ ! -d ~/.vim/rc/ ]]; then
-  mkdir -p ~/.vim/rc/
-  ln -s ~/dotfiles/dein.toml ~/.vim/rc/dein.toml
-  ln -s ~/dotfiles/dein_lazy.toml ~/.vim/rc/dein_lazy.toml
+## vim plugins
+if [[ ! -d ~/.config/nvim/lua ]]; then
+  mkdir -p ~/.config/nvim/lua
+  ln -s ~/dotfiles/lua/plugins.lua ~/.config/nvim/lua/plugins.lua
 fi
+
 if [[ ! -d ~/.config/alacritty ]]; then
   mkdir -p ~/.config/alacritty
   ln -s ~/dotfiles/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
