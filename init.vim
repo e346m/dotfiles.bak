@@ -6,6 +6,14 @@ set smartindent "オートインデント
 set showcmd "入力中のコマンドをステータスに表示する
 set showmatch "括弧入力時の対応する括弧を表示
 set laststatus=2 "ステータスラインを常に表示
+set statusline=%F
+set statusline+=%m
+set statusline+=%r
+set statusline+=%h
+set statusline+=%w
+set statusline+=%=
+set statusline+=[ENC=%{&fileencoding}]
+set statusline+=[LOW=%l/%L]
 set cursorline
 set colorcolumn=100
 set wrap

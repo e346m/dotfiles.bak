@@ -161,6 +161,7 @@ case ${OSTYPE} in
     alias gcp=_gcloud_change_project
     ;;
   linux*)
+    alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)" -H "Content-Type: application/json"'
     function _gcloud_change_project() {
       local proj=$(gcloud config configurations list | fzf --header-lines=1 | awk '{print $1}')
       if [ -n $proj ]; then
